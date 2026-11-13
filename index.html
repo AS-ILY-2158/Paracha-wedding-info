@@ -3,152 +3,189 @@
 <html lang="en" dir="ltr">
 
 <head>
-    <!-- =========================================
-         01. DOCUMENT CONFIGURATION
-    ========================================== -->
+    <!-- ==========================================
+         PARACHA WEDDING WEBSITE BY ASP
+         HTML PART 1 OF 3
+         Document Setup & Main Website Sections
+    =========================================== -->
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="author" content="ASP Group of Businesses">
-    <meta name="description"
-        content="Paracha Wedding Card by ASP — A premium celebration of family, love and new beginnings.">
+    <!-- SEO -->
+    <title>Paracha Wedding | A Celebration of Togetherness</title>
 
-    <meta name="keywords"
-        content="Paracha Wedding, ASP, Wedding Celebration, Nikah, Baraat, Walima">
+    <meta
+        name="description"
+        content="A premium digital wedding experience celebrating the Paracha and Ahmad families."
+    >
 
-    <meta name="theme-color" content="#111111">
-    <meta name="color-scheme" content="light">
+    <meta name="author" content="ASP - Abdullah Shah Paracha">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#171b18">
 
+    <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Paracha Wedding Card by ASP">
-    <meta property="og:description"
-        content="A beautiful celebration of family, love and new beginnings.">
+    <meta
+        property="og:title"
+        content="Paracha Wedding | A Celebration of Togetherness"
+    >
+    <meta
+        property="og:description"
+        content="A beautiful celebration of family, togetherness and blessings."
+    >
+    <meta property="og:locale" content="en_US">
 
-    <title>Paracha Wedding Card | By ASP</title>
-
-    <!-- =========================================
-         02. FONTS
-    ========================================== -->
-
-    <!-- Local fonts can be connected here later. -->
-
-    <!-- =========================================
-         03. STYLESHEET
-    ========================================== -->
-
+    <!-- Website Stylesheet -->
     <link rel="stylesheet" href="assets/css/style.css">
 
-    <!-- =========================================
-         04. JAVASCRIPT
-    ========================================== -->
+    <!-- Website Icon -->
+    <link
+        rel="icon"
+        href="assets/icons/favicon.svg"
+        type="image/svg+xml"
+    >
 
+    <!-- JavaScript -->
     <script src="assets/js/script.js" defer></script>
 
 </head>
 
+<body>
 
-<body class="site-body">
+    <!-- ==========================================
+         ACCESSIBILITY: SKIP NAVIGATION
+    =========================================== -->
 
-    <!-- =========================================
-         01. ACCESSIBILITY
-    ========================================== -->
-
-    <a class="skip-link" href="#main-content">
+    <a href="#main-content" class="skip-link" data-i18n="skipNavigation">
         Skip to main content
     </a>
 
 
-    <!-- =========================================
-         02. SITE HEADER
-    ========================================== -->
+    <!-- ==========================================
+         WEBSITE HEADER & NAVIGATION
+    =========================================== -->
 
     <header class="site-header" id="site-header">
 
         <div class="header-container">
 
             <!-- Brand -->
+            <a
+                href="#home"
+                class="brand"
+                aria-label="Paracha Wedding Home"
+            >
 
-            <a href="#home" class="brand" aria-label="Paracha Wedding Card Home">
-
-                <span class="brand-name">
-                    PARACHA
+                <span class="brand-monogram" aria-hidden="true">
+                    P
                 </span>
 
-                <span class="brand-subtitle">
-                    WEDDING CELEBRATION
-                </span>
+                <span class="brand-text">
+                    <span class="brand-name">
+                        PARACHA
+                    </span>
 
-                <span class="brand-credit">
-                    BY ASP
+                    <span class="brand-subtitle">
+                        WEDDING CELEBRATION
+                    </span>
                 </span>
 
             </a>
 
 
             <!-- Desktop Navigation -->
+            <nav
+                class="main-navigation"
+                id="main-navigation"
+                aria-label="Main Navigation"
+            >
 
-            <nav class="main-navigation" id="main-navigation"
-                aria-label="Main navigation">
+                <ul class="navigation-list">
 
-                <a href="#home" data-i18n="nav_home">
-                    Home
-                </a>
+                    <li>
+                        <a href="#home" class="nav-link active" data-i18n="navHome">
+                            Home
+                        </a>
+                    </li>
 
-                <a href="#families" data-i18n="nav_families">
-                    Families
-                </a>
+                    <li>
+                        <a href="#introduction" class="nav-link" data-i18n="navIntroduction">
+                            Introduction
+                        </a>
+                    </li>
 
-                <a href="#events" data-i18n="nav_events">
-                    Events
-                </a>
+                    <li>
+                        <a href="#events" class="nav-link" data-i18n="navEvents">
+                            Events
+                        </a>
+                    </li>
 
-                <a href="#quran" data-i18n="nav_quran">
-                    Quran
-                </a>
+                    <li>
+                        <a href="#families" class="nav-link" data-i18n="navFamilies">
+                            Families
+                        </a>
+                    </li>
 
-                <a href="#hadith" data-i18n="nav_hadith">
-                    Hadith
-                </a>
+                    <li>
+                        <a href="#blessings" class="nav-link" data-i18n="navBlessings">
+                            Blessings
+                        </a>
+                    </li>
 
-                <a href="#message" data-i18n="nav_message">
-                    Message
-                </a>
+                </ul>
 
             </nav>
 
 
             <!-- Header Actions -->
-
             <div class="header-actions">
 
-                <!-- Language Switcher -->
+                <!-- Language Switch -->
+                <div
+                    class="language-switch"
+                    role="group"
+                    aria-label="Select Website Language"
+                >
 
+                    <button
+                        type="button"
+                        class="language-button active"
+                        data-language="en"
+                        aria-pressed="true"
+                    >
+                        EN
+                    </button>
+
+                    <span class="language-divider" aria-hidden="true">
+                        /
+                    </span>
+
+                    <button
+                        type="button"
+                        class="language-button"
+                        data-language="ur"
+                        aria-pressed="false"
+                    >
+                        اردو
+                    </button>
+
+                </div>
+
+
+                <!-- Mobile Navigation Toggle -->
                 <button
                     type="button"
-                    class="language-switcher"
-                    id="language-toggle"
-                    aria-label="Change website language"
-                    aria-pressed="false">
-
-                    اردو
-
-                </button>
-
-
-                <!-- Mobile Menu Button -->
-
-                <button
-                    type="button"
-                    class="menu-toggle"
-                    id="menu-toggle"
+                    class="mobile-menu-toggle"
+                    id="mobile-menu-toggle"
                     aria-label="Open navigation menu"
                     aria-expanded="false"
-                    aria-controls="main-navigation">
+                    aria-controls="main-navigation"
+                >
 
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
 
                 </button>
 
@@ -159,56 +196,151 @@
     </header>
 
 
-    <!-- =========================================
-         03. MAIN CONTENT
-    ========================================== -->
+
+    <!-- ==========================================
+         MAIN WEBSITE CONTENT
+    =========================================== -->
 
     <main id="main-content">
 
 
-        <!-- =====================================
+        <!-- ======================================
              SECTION 01: WELCOME / HERO
-        ====================================== -->
+        ======================================= -->
 
-        <section class="hero-section" id="home">
+        <section
+            class="hero-section"
+            id="home"
+            aria-labelledby="hero-title"
+        >
 
-            <div class="hero-background" aria-hidden="true"></div>
+            <div class="hero-background-decoration" aria-hidden="true">
 
-            <div class="hero-content">
+                <span class="hero-decoration hero-decoration-one"></span>
 
-                <p class="hero-bismillah" lang="ar" dir="rtl">
-                    بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
-                </p>
+                <span class="hero-decoration hero-decoration-two"></span>
 
-                <p class="hero-eyebrow" data-i18n="hero_eyebrow">
+                <span class="hero-decoration hero-decoration-three"></span>
+
+            </div>
+
+
+            <div class="hero-content" data-reveal>
+
+                <p class="hero-eyebrow" data-i18n="heroEyebrow">
                     A SPECIAL FAMILY CELEBRATION
                 </p>
 
-                <h1 class="hero-title" data-i18n="hero_title">
-                    Paracha Wedding Celebration
+
+                <div class="hero-ornament" aria-hidden="true">
+                    <span></span>
+                    <span class="ornament-center"></span>
+                    <span></span>
+                </div>
+
+
+                <h1 class="hero-title" id="hero-title">
+
+                    <span class="hero-title-line" data-i18n="heroTitleFirst">
+                        A Celebration
+                    </span>
+
+                    <span class="hero-title-accent" data-i18n="heroTitleSecond">
+                        of Togetherness
+                    </span>
+
                 </h1>
 
-                <p class="hero-description" data-i18n="hero_description">
-                    A beautiful beginning of a new journey,
-                    surrounded by family, love and blessings.
+
+                <p class="hero-description" data-i18n="heroDescription">
+                    Two families, one beautiful occasion,
+                    and countless blessings.
                 </p>
 
-                <a href="#introduction"
-                    class="primary-button"
-                    data-i18n="hero_button">
 
-                    Discover the Celebration
+                <div class="hero-family-names">
+
+                    <span class="hero-family-name">
+                        PARACHA
+                    </span>
+
+                    <span class="hero-family-separator" aria-hidden="true">
+                        &
+                    </span>
+
+                    <span class="hero-family-name">
+                        AHMAD
+                    </span>
+
+                </div>
+
+
+                <a
+                    href="#introduction"
+                    class="hero-scroll-link"
+                >
+
+                    <span data-i18n="exploreInvitation">
+                        Explore the Celebration
+                    </span>
+
+                    <span class="scroll-arrow" aria-hidden="true">
+                        ↓
+                    </span>
 
                 </a>
 
-                <div class="hero-scroll-indicator" aria-hidden="true">
+            </div>
 
-                    <span data-i18n="scroll_text">
-                        SCROLL TO EXPLORE
-                    </span>
 
-                    <span class="scroll-line"></span>
+            <div class="hero-bottom-label" aria-hidden="true">
 
+                <span>EST. 2027</span>
+
+                <span class="hero-bottom-line"></span>
+
+                <span>PESHAWAR, PAKISTAN</span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ======================================
+             SECTION 02: BISMILLAH
+        ======================================= -->
+
+        <section
+            class="bismillah-section"
+            id="bismillah"
+            aria-label="Bismillah"
+        >
+
+            <div class="section-container" data-reveal>
+
+                <div class="bismillah-ornament" aria-hidden="true">
+                    <span></span>
+                </div>
+
+
+                <p class="bismillah-arabic" lang="ar" dir="rtl">
+
+                    بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+
+                </p>
+
+
+                <p class="bismillah-translation" data-i18n="bismillahTranslation">
+
+                    In the name of Allah, the Most Gracious,
+                    the Most Merciful.
+
+                </p>
+
+
+                <div class="bismillah-ornament bottom" aria-hidden="true">
+                    <span></span>
                 </div>
 
             </div>
@@ -217,73 +349,83 @@
 
 
 
-        <!-- =====================================
-             SECTION 02: INTRODUCTION
-        ====================================== -->
+        <!-- ======================================
+             SECTION 03: WEDDING INTRODUCTION
+        ======================================= -->
 
-        <section class="introduction-section" id="introduction">
+        <section
+            class="introduction-section section-light"
+            id="introduction"
+            aria-labelledby="introduction-title"
+        >
 
             <div class="section-container">
 
-                <p class="section-eyebrow" data-i18n="intro_eyebrow">
-                    A NEW CHAPTER
-                </p>
 
-                <h2 class="section-title" data-i18n="intro_title">
-                    A Celebration of Togetherness
-                </h2>
+                <div class="section-heading" data-reveal>
 
-                <p class="section-description" data-i18n="intro_description">
-                    Some moments become beautiful memories,
-                    and some occasions bring families closer.
-                    This celebration marks the beginning of
-                    a new chapter filled with hope and blessings.
-                </p>
+                    <p class="section-eyebrow" data-i18n="introductionEyebrow">
+                        A MOMENT TO REMEMBER
+                    </p>
 
-                <div class="current-date-information">
 
-                    <div class="date-information-item">
+                    <h2
+                        class="section-title"
+                        id="introduction-title"
+                        data-i18n="introductionTitle"
+                    >
+                        A Beautiful Beginning
+                    </h2>
 
-                        <span data-i18n="gregorian_label">
-                            Gregorian Date
-                        </span>
 
-                        <time id="gregorian-date">
-                            Loading...
-                        </time>
-
+                    <div class="section-title-divider" aria-hidden="true">
+                        <span></span>
                     </div>
 
-                    <div class="date-information-item">
+                </div>
 
-                        <span data-i18n="hijri_label">
-                            Hijri Date
-                        </span>
 
-                        <time id="hijri-date">
-                            Loading...
-                        </time>
 
-                    </div>
+                <div class="introduction-content" data-reveal>
 
-                    <div class="date-information-item">
+                    <p
+                        class="introduction-text"
+                        data-i18n="introductionParagraphOne"
+                    >
 
-                        <span data-i18n="location_label">
-                            Location
-                        </span>
+                        With the blessings of Almighty Allah,
+                        two families come together to celebrate
+                        a beautiful occasion of love, respect
+                        and togetherness.
 
-                        <span>
-                            Peshawar, Pakistan
+                    </p>
+
+
+                    <p
+                        class="introduction-text"
+                        data-i18n="introductionParagraphTwo"
+                    >
+
+                        The Paracha and Ahmad families warmly
+                        welcome you to share in these memorable
+                        moments and celebrate the beginning
+                        of a new chapter.
+
+                    </p>
+
+
+                    <div class="introduction-signature">
+
+                        <span class="signature-line"></span>
+
+                        <span data-i18n="withGratitude">
+                            With gratitude and prayers
                         </span>
 
                     </div>
 
                 </div>
 
-                <p class="date-disclaimer" data-i18n="hijri_disclaimer">
-                    Hijri dates are subject to official moon-sighting
-                    announcements in Pakistan.
-                </p>
 
             </div>
 
@@ -291,235 +433,254 @@
 
 
 
-        <!-- =====================================
-             SECTION 03: FAMILY INTRODUCTION
-        ====================================== -->
-
-        <section class="families-section" id="families">
-
-            <div class="section-container">
-
-                <p class="section-eyebrow" data-i18n="families_eyebrow">
-                    TWO FAMILIES
-                </p>
-
-                <h2 class="section-title" data-i18n="families_title">
-                    Family Introductions
-                </h2>
-
-                <p class="section-description" data-i18n="families_description">
-                    A celebration connecting two families
-                    through a beautiful new relationship.
-                </p>
-
-
-                <!-- Bride's Family -->
-
-                <article class="family-card family-card-paracha">
-
-                    <div class="family-card-heading">
-
-                        <p class="family-label" data-i18n="bride_family_label">
-                            BRIDE'S FAMILY
-                        </p>
-
-                        <h3 data-i18n="paracha_family">
-                            Paracha Family
-                        </h3>
-
-                    </div>
-
-
-                    <div class="family-details">
-
-                        <p data-i18n="bride_father">
-                            Daughter of Haji Khalid Iqbal
-                        </p>
-
-                        <p data-i18n="bride_grandfather">
-                            Granddaughter of Haji Naik Rahim
-                        </p>
-
-                        <p data-i18n="bride_uncles">
-                            Niece of Muzaffar Iqbal,
-                            Kausar Iqbal and Saleem Iqbal
-                        </p>
-
-                        <p data-i18n="bride_brothers">
-                            Sister of Abdullah Shah Paracha (ASP)
-                            and Saad Iqbal Shah
-                        </p>
-
-                        <p data-i18n="bride_cousins">
-                            Cousin of Mustafa Iqbal Shah,
-                            Mujtaba Iqbal Shah,
-                            Hashim Iqbal Shah and
-                            Murtaza Iqbal Shah
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-                <!-- Groom's Family -->
-
-                <article class="family-card family-card-ahmad">
-
-                    <div class="family-card-heading">
-
-                        <p class="family-label" data-i18n="groom_family_label">
-                            GROOM'S FAMILY
-                        </p>
-
-                        <h3 data-i18n="ahmad_family">
-                            Ahmad Family
-                        </h3>
-
-                    </div>
-
-
-                    <div class="family-details">
-
-                        <p>
-                            <strong data-i18n="groom_name_label">
-                                Groom:
-                            </strong>
-
-                            Asfahan Ahmad
-                        </p>
-
-                        <p data-i18n="groom_father">
-                            Son of Shafiq Ahmad
-                        </p>
-
-                        <p data-i18n="groom_grandfather">
-                            Grandson of Nazir Ahmad
-                        </p>
-
-                        <p data-i18n="groom_brother">
-                            Brother of Musa Ahmad
-                        </p>
-
-                    </div>
-
-                </article>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =====================================
+        <!-- ======================================
              SECTION 04: WEDDING EVENTS
-        ====================================== -->
+        ======================================= -->
 
-        <section class="events-section" id="events">
+        <section
+            class="events-section section-dark"
+            id="events"
+            aria-labelledby="events-title"
+        >
 
             <div class="section-container">
 
-                <p class="section-eyebrow" data-i18n="events_eyebrow">
-                    THREE SPECIAL OCCASIONS
-                </p>
 
-                <h2 class="section-title" data-i18n="events_title">
-                    Wedding Celebrations
-                </h2>
+                <!-- Section Heading -->
+                <div class="section-heading" data-reveal>
 
-                <p class="section-description" data-i18n="events_description">
-                    Three memorable occasions marking
-                    the beginning of a new family journey.
-                </p>
+                    <p class="section-eyebrow" data-i18n="eventsEyebrow">
+                        SAVE THE DATES
+                    </p>
 
 
+                    <h2
+                        class="section-title"
+                        id="events-title"
+                        data-i18n="eventsTitle"
+                    >
+                        Wedding Celebrations
+                    </h2>
+
+
+                    <p
+                        class="section-description"
+                        data-i18n="eventsDescription"
+                    >
+
+                        Three special occasions,
+                        each carrying its own beautiful memories.
+
+                    </p>
+
+
+                    <div class="section-title-divider" aria-hidden="true">
+                        <span></span>
+                    </div>
+
+                </div>
+
+
+
+                <!-- Wedding Event Cards -->
                 <div class="events-grid">
 
 
                     <!-- NIKAH -->
+                    <article
+                        class="event-card"
+                        id="nikah-event"
+                        data-event="nikah"
+                        data-reveal
+                    >
 
-                    <article class="event-card" id="nikah">
+                        <div class="event-card-top">
 
-                        <div class="event-number">
-                            01
-                        </div>
+                            <span class="event-number">
+                                01
+                            </span>
 
-                        <p class="event-hijri-date"
-                            data-hijri-event="nikah">
-
-                            Expected 27 Ramadan 1448 AH
-
-                        </p>
-
-                        <h3 data-i18n="nikah_title">
-                            Nikah
-                        </h3>
-
-                        <p class="event-date">
-                            <time datetime="2027-03-06">
-                                Saturday, 06 March 2027
-                            </time>
-                        </p>
-
-                        <div class="event-details">
-
-                            <p>
-                                <span data-i18n="event_time">
-                                    Time
-                                </span>
-
-                                <strong data-i18n="coming_soon">
-                                    Coming Soon
-                                </strong>
-                            </p>
-
-                            <p>
-                                <span data-i18n="event_venue">
-                                    Venue
-                                </span>
-
-                                <strong data-i18n="coming_soon">
-                                    Coming Soon
-                                </strong>
-                            </p>
+                            <span class="event-status" data-i18n="eventUpcoming">
+                                UPCOMING
+                            </span>
 
                         </div>
 
 
-                        <!-- Nikah Countdown -->
+                        <div class="event-card-content">
 
-                        <div class="countdown-container"
-                            data-countdown="nikah"
-                            data-date="2027-03-06T00:00:00+05:00">
-
-                            <p class="countdown-heading"
-                                data-i18n="countdown_label">
-
-                                Time Remaining
-
+                            <p class="event-label" data-i18n="nikahLabel">
+                                THE SACRED BEGINNING
                             </p>
 
-                            <div class="countdown-display">
 
-                                <div class="countdown-unit">
-                                    <span data-countdown-days>--</span>
-                                    <small data-i18n="days">Days</small>
+                            <h3 class="event-title" data-i18n="nikahTitle">
+                                Nikah
+                            </h3>
+
+
+                            <p class="event-description" data-i18n="nikahDescription">
+                                A blessed union founded upon faith,
+                                love and the mercy of Allah.
+                            </p>
+
+
+                            <div class="event-date-block">
+
+                                <span class="event-day">
+                                    06
+                                </span>
+
+                                <div class="event-date-details">
+
+                                    <span class="event-month">
+                                        MARCH
+                                    </span>
+
+                                    <span class="event-year">
+                                        2027
+                                    </span>
+
                                 </div>
 
-                                <div class="countdown-unit">
-                                    <span data-countdown-hours>--</span>
-                                    <small data-i18n="hours">Hours</small>
+                            </div>
+
+
+                            <p class="event-weekday" data-i18n="saturday">
+                                Saturday
+                            </p>
+
+
+                            <div class="event-hijri">
+
+                                <span data-i18n="expectedHijri">
+                                    Expected Hijri Date
+                                </span>
+
+                                <strong data-hijri="nikah">
+                                    27 Ramadan 1448 AH
+                                </strong>
+
+                            </div>
+
+
+                            <div class="event-extra-details">
+
+                                <p class="event-detail">
+
+                                    <span class="detail-label" data-i18n="eventTime">
+                                        Time
+                                    </span>
+
+                                    <span class="detail-value" data-i18n="comingSoon">
+                                        Coming Soon
+                                    </span>
+
+                                </p>
+
+
+                                <p class="event-detail">
+
+                                    <span class="detail-label" data-i18n="eventVenue">
+                                        Venue
+                                    </span>
+
+                                    <span class="detail-value" data-i18n="comingSoon">
+                                        Coming Soon
+                                    </span>
+
+                                </p>
+
+                            </div>
+
+
+                            <!-- Nikah Countdown -->
+                            <div
+                                class="event-countdown"
+                                data-countdown="nikah"
+                                aria-live="off"
+                            >
+
+                                <p class="countdown-heading" data-i18n="countdownHeading">
+                                    TIME REMAINING
+                                </p>
+
+
+                                <div class="countdown-units">
+
+                                    <div class="countdown-unit">
+
+                                        <span
+                                            class="countdown-value"
+                                            data-countdown-value="days"
+                                        >
+                                            --
+                                        </span>
+
+                                        <span class="countdown-label" data-i18n="days">
+                                            Days
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="countdown-unit">
+
+                                        <span
+                                            class="countdown-value"
+                                            data-countdown-value="hours"
+                                        >
+                                            --
+                                        </span>
+
+                                        <span class="countdown-label" data-i18n="hours">
+                                            Hours
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="countdown-unit">
+
+                                        <span
+                                            class="countdown-value"
+                                            data-countdown-value="minutes"
+                                        >
+                                            --
+                                        </span>
+
+                                        <span class="countdown-label" data-i18n="minutes">
+                                            Minutes
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="countdown-unit">
+
+                                        <span
+                                            class="countdown-value"
+                                            data-countdown-value="seconds"
+                                        >
+                                            --
+                                        </span>
+
+                                        <span class="countdown-label" data-i18n="seconds">
+                                            Seconds
+                                        </span>
+
+                                    </div>
+
                                 </div>
 
-                                <div class="countdown-unit">
-                                    <span data-countdown-minutes>--</span>
-                                    <small data-i18n="minutes">Minutes</small>
-                                </div>
 
-                                <div class="countdown-unit">
-                                    <span data-countdown-seconds>--</span>
-                                    <small data-i18n="seconds">Seconds</small>
-                                </div>
+                                <p
+                                    class="countdown-status"
+                                    data-countdown-status="nikah"
+                                    data-i18n="countdownLoading"
+                                >
+                                    Preparing Countdown
+                                </p>
 
                             </div>
 
@@ -530,89 +691,200 @@
 
 
                     <!-- BARAAT -->
+                    <article
+                        class="event-card featured-event"
+                        id="baraat-event"
+                        data-event="baraat"
+                        data-reveal
+                    >
 
-                    <article class="event-card" id="baraat">
+                        <div class="event-card-top">
 
-                        <div class="event-number">
-                            02
-                        </div>
+                            <span class="event-number">
+                                02
+                            </span>
 
-                        <p class="event-hijri-date"
-                            data-hijri-event="baraat">
-
-                            Expected 26 Shawwal 1448 AH
-
-                        </p>
-
-                        <h3 data-i18n="baraat_title">
-                            Baraat
-                        </h3>
-
-                        <p class="event-date">
-                            <time datetime="2027-04-03">
-                                Saturday, 03 April 2027
-                            </time>
-                        </p>
-
-                        <div class="event-details">
-
-                            <p>
-                                <span data-i18n="event_time">
-                                    Time
-                                </span>
-
-                                <strong data-i18n="coming_soon">
-                                    Coming Soon
-                                </strong>
-                            </p>
-
-                            <p>
-                                <span data-i18n="event_venue">
-                                    Venue
-                                </span>
-
-                                <strong data-i18n="coming_soon">
-                                    Coming Soon
-                                </strong>
-                            </p>
+                            <span class="event-status" data-i18n="eventUpcoming">
+                                UPCOMING
+                            </span>
 
                         </div>
 
 
-                        <!-- Baraat Countdown -->
+                        <div class="event-card-content">
 
-                        <div class="countdown-container"
-                            data-countdown="baraat"
-                            data-date="2027-04-03T00:00:00+05:00">
-
-                            <p class="countdown-heading"
-                                data-i18n="countdown_label">
-
-                                Time Remaining
-
+                            <p class="event-label" data-i18n="baraatLabel">
+                                A DAY OF CELEBRATION
                             </p>
 
-                            <div class="countdown-display">
 
-                                <div class="countdown-unit">
-                                    <span data-countdown-days>--</span>
-                                    <small data-i18n="days">Days</small>
+                            <h3 class="event-title" data-i18n="baraatTitle">
+                                Baraat
+                            </h3>
+
+
+                            <p class="event-description" data-i18n="baraatDescription">
+                                A joyful celebration of family,
+                                tradition and togetherness.
+                            </p>
+
+
+                            <div class="event-date-block">
+
+                                <span class="event-day">
+                                    03
+                                </span>
+
+                                <div class="event-date-details">
+
+                                    <span class="event-month">
+                                        APRIL
+                                    </span>
+
+                                    <span class="event-year">
+                                        2027
+                                    </span>
+
                                 </div>
 
-                                <div class="countdown-unit">
-                                    <span data-countdown-hours>--</span>
-                                    <small data-i18n="hours">Hours</small>
+                            </div>
+
+
+                            <p class="event-weekday" data-i18n="saturday">
+                                Saturday
+                            </p>
+
+
+                            <div class="event-hijri">
+
+                                <span data-i18n="expectedHijri">
+                                    Expected Hijri Date
+                                </span>
+
+                                <strong data-hijri="baraat">
+                                    26 Shawwal 1448 AH
+                                </strong>
+
+                            </div>
+
+
+                            <div class="event-extra-details">
+
+                                <p class="event-detail">
+
+                                    <span class="detail-label" data-i18n="eventTime">
+                                        Time
+                                    </span>
+
+                                    <span class="detail-value" data-i18n="comingSoon">
+                                        Coming Soon
+                                    </span>
+
+                                </p>
+
+
+                                <p class="event-detail">
+
+                                    <span class="detail-label" data-i18n="eventVenue">
+                                        Venue
+                                    </span>
+
+                                    <span class="detail-value" data-i18n="comingSoon">
+                                        Coming Soon
+                                    </span>
+
+                                </p>
+
+                            </div>
+
+
+                            <!-- Baraat Countdown -->
+                            <div
+                                class="event-countdown"
+                                data-countdown="baraat"
+                                aria-live="off"
+                            >
+
+                                <p class="countdown-heading" data-i18n="countdownHeading">
+                                    TIME REMAINING
+                                </p>
+
+
+                                <div class="countdown-units">
+
+                                    <div class="countdown-unit">
+
+                                        <span
+                                            class="countdown-value"
+                                            data-countdown-value="days"
+                                        >
+                                            --
+                                        </span>
+
+                                        <span class="countdown-label" data-i18n="days">
+                                            Days
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="countdown-unit">
+
+                                        <span
+                                            class="countdown-value"
+                                            data-countdown-value="hours"
+                                        >
+                                            --
+                                        </span>
+
+                                        <span class="countdown-label" data-i18n="hours">
+                                            Hours
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="countdown-unit">
+
+                                        <span
+                                            class="countdown-value"
+                                            data-countdown-value="minutes"
+                                        >
+                                            --
+                                        </span>
+
+                                        <span class="countdown-label" data-i18n="minutes">
+                                            Minutes
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="countdown-unit">
+
+                                        <span
+                                            class="countdown-value"
+                                            data-countdown-value="seconds"
+                                        >
+                                            --
+                                        </span>
+
+                                        <span class="countdown-label" data-i18n="seconds">
+                                            Seconds
+                                        </span>
+
+                                    </div>
+
                                 </div>
 
-                                <div class="countdown-unit">
-                                    <span data-countdown-minutes>--</span>
-                                    <small data-i18n="minutes">Minutes</small>
-                                </div>
 
-                                <div class="countdown-unit">
-                                    <span data-countdown-seconds>--</span>
-                                    <small data-i18n="seconds">Seconds</small>
-                                </div>
+                                <p
+                                    class="countdown-status"
+                                    data-countdown-status="baraat"
+                                    data-i18n="countdownLoading"
+                                >
+                                    Preparing Countdown
+                                </p>
 
                             </div>
 
@@ -623,89 +895,200 @@
 
 
                     <!-- WALIMA -->
+                    <article
+                        class="event-card"
+                        id="walima-event"
+                        data-event="walima"
+                        data-reveal
+                    >
 
-                    <article class="event-card" id="walima">
+                        <div class="event-card-top">
 
-                        <div class="event-number">
-                            03
-                        </div>
+                            <span class="event-number">
+                                03
+                            </span>
 
-                        <p class="event-hijri-date"
-                            data-hijri-event="walima">
-
-                            Expected 27 Shawwal 1448 AH
-
-                        </p>
-
-                        <h3 data-i18n="walima_title">
-                            Walima
-                        </h3>
-
-                        <p class="event-date">
-                            <time datetime="2027-04-04">
-                                Sunday, 04 April 2027
-                            </time>
-                        </p>
-
-                        <div class="event-details">
-
-                            <p>
-                                <span data-i18n="event_time">
-                                    Time
-                                </span>
-
-                                <strong data-i18n="coming_soon">
-                                    Coming Soon
-                                </strong>
-                            </p>
-
-                            <p>
-                                <span data-i18n="event_venue">
-                                    Venue
-                                </span>
-
-                                <strong data-i18n="coming_soon">
-                                    Coming Soon
-                                </strong>
-                            </p>
+                            <span class="event-status" data-i18n="eventUpcoming">
+                                UPCOMING
+                            </span>
 
                         </div>
 
 
-                        <!-- Walima Countdown -->
+                        <div class="event-card-content">
 
-                        <div class="countdown-container"
-                            data-countdown="walima"
-                            data-date="2027-04-04T00:00:00+05:00">
-
-                            <p class="countdown-heading"
-                                data-i18n="countdown_label">
-
-                                Time Remaining
-
+                            <p class="event-label" data-i18n="walimaLabel">
+                                A CELEBRATION OF BLESSINGS
                             </p>
 
-                            <div class="countdown-display">
 
-                                <div class="countdown-unit">
-                                    <span data-countdown-days>--</span>
-                                    <small data-i18n="days">Days</small>
+                            <h3 class="event-title" data-i18n="walimaTitle">
+                                Walima
+                            </h3>
+
+
+                            <p class="event-description" data-i18n="walimaDescription">
+                                An occasion of gratitude,
+                                happiness and shared blessings.
+                            </p>
+
+
+                            <div class="event-date-block">
+
+                                <span class="event-day">
+                                    04
+                                </span>
+
+                                <div class="event-date-details">
+
+                                    <span class="event-month">
+                                        APRIL
+                                    </span>
+
+                                    <span class="event-year">
+                                        2027
+                                    </span>
+
                                 </div>
 
-                                <div class="countdown-unit">
-                                    <span data-countdown-hours>--</span>
-                                    <small data-i18n="hours">Hours</small>
+                            </div>
+
+
+                            <p class="event-weekday" data-i18n="sunday">
+                                Sunday
+                            </p>
+
+
+                            <div class="event-hijri">
+
+                                <span data-i18n="expectedHijri">
+                                    Expected Hijri Date
+                                </span>
+
+                                <strong data-hijri="walima">
+                                    27 Shawwal 1448 AH
+                                </strong>
+
+                            </div>
+
+
+                            <div class="event-extra-details">
+
+                                <p class="event-detail">
+
+                                    <span class="detail-label" data-i18n="eventTime">
+                                        Time
+                                    </span>
+
+                                    <span class="detail-value" data-i18n="comingSoon">
+                                        Coming Soon
+                                    </span>
+
+                                </p>
+
+
+                                <p class="event-detail">
+
+                                    <span class="detail-label" data-i18n="eventVenue">
+                                        Venue
+                                    </span>
+
+                                    <span class="detail-value" data-i18n="comingSoon">
+                                        Coming Soon
+                                    </span>
+
+                                </p>
+
+                            </div>
+
+
+                            <!-- Walima Countdown -->
+                            <div
+                                class="event-countdown"
+                                data-countdown="walima"
+                                aria-live="off"
+                            >
+
+                                <p class="countdown-heading" data-i18n="countdownHeading">
+                                    TIME REMAINING
+                                </p>
+
+
+                                <div class="countdown-units">
+
+                                    <div class="countdown-unit">
+
+                                        <span
+                                            class="countdown-value"
+                                            data-countdown-value="days"
+                                        >
+                                            --
+                                        </span>
+
+                                        <span class="countdown-label" data-i18n="days">
+                                            Days
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="countdown-unit">
+
+                                        <span
+                                            class="countdown-value"
+                                            data-countdown-value="hours"
+                                        >
+                                            --
+                                        </span>
+
+                                        <span class="countdown-label" data-i18n="hours">
+                                            Hours
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="countdown-unit">
+
+                                        <span
+                                            class="countdown-value"
+                                            data-countdown-value="minutes"
+                                        >
+                                            --
+                                        </span>
+
+                                        <span class="countdown-label" data-i18n="minutes">
+                                            Minutes
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="countdown-unit">
+
+                                        <span
+                                            class="countdown-value"
+                                            data-countdown-value="seconds"
+                                        >
+                                            --
+                                        </span>
+
+                                        <span class="countdown-label" data-i18n="seconds">
+                                            Seconds
+                                        </span>
+
+                                    </div>
+
                                 </div>
 
-                                <div class="countdown-unit">
-                                    <span data-countdown-minutes>--</span>
-                                    <small data-i18n="minutes">Minutes</small>
-                                </div>
 
-                                <div class="countdown-unit">
-                                    <span data-countdown-seconds>--</span>
-                                    <small data-i18n="seconds">Seconds</small>
-                                </div>
+                                <p
+                                    class="countdown-status"
+                                    data-countdown-status="walima"
+                                    data-i18n="countdownLoading"
+                                >
+                                    Preparing Countdown
+                                </p>
 
                             </div>
 
@@ -713,14 +1096,337 @@
 
                     </article>
 
+
                 </div>
 
 
-                <p class="events-disclaimer" data-i18n="events_disclaimer">
-                    Event times and venues will be announced later.
-                    Hijri dates are provisional and subject to
-                    official moon-sighting confirmation in Pakistan.
+                <!-- Hijri Date Notice -->
+                <p class="hijri-disclaimer" data-reveal>
+
+                    <span class="notice-symbol" aria-hidden="true">
+                        *
+                    </span>
+
+                    <span data-i18n="hijriDisclaimer">
+                        Hijri dates are expected and subject
+                        to official moon-sighting announcements
+                        in Pakistan.
+                    </span>
+
                 </p>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- HTML PART 1 OF 3 ENDS HERE -->
+        <!-- PART 2 CONTINUES INSIDE <main> -->
+
+
+        <!-- ======================================
+             SECTION 05: FAMILY INTRODUCTION
+        ======================================= -->
+
+        <section
+            class="families-section section-light"
+            id="families"
+            aria-labelledby="families-title"
+        >
+
+            <div class="section-container">
+
+                <!-- Section Heading -->
+                <div class="section-heading" data-reveal>
+
+                    <p class="section-eyebrow" data-i18n="familiesEyebrow">
+                        TWO FAMILIES, ONE CELEBRATION
+                    </p>
+
+                    <h2
+                        class="section-title"
+                        id="families-title"
+                        data-i18n="familiesTitle"
+                    >
+                        The Families
+                    </h2>
+
+                    <p class="section-description" data-i18n="familiesDescription">
+                        A celebration bringing two families together
+                        with love, respect and blessings.
+                    </p>
+
+                    <div class="section-title-divider" aria-hidden="true">
+                        <span></span>
+                    </div>
+
+                </div>
+
+
+                <!-- Families Grid -->
+                <div class="families-grid">
+
+
+                    <!-- BRIDE'S FAMILY -->
+                    <article
+                        class="family-card bride-family-card"
+                        id="bride-family"
+                        data-reveal
+                    >
+
+                        <div class="family-card-header">
+
+                            <span class="family-card-number">
+                                01
+                            </span>
+
+                            <p class="family-card-eyebrow" data-i18n="brideFamilyEyebrow">
+                                THE BRIDE'S FAMILY
+                            </p>
+
+                            <h3 class="family-card-title" data-i18n="parachaFamily">
+                                Paracha Family
+                            </h3>
+
+                            <span class="family-card-divider" aria-hidden="true"></span>
+
+                        </div>
+
+
+                        <div class="family-details">
+
+                            <!-- Father -->
+                            <div class="family-relation">
+
+                                <span class="relation-label" data-i18n="daughterOf">
+                                    Daughter of
+                                </span>
+
+                                <h4 class="family-member-name">
+                                    Haji Khalid Iqbal
+                                </h4>
+
+                            </div>
+
+
+                            <!-- Grandfather -->
+                            <div class="family-relation">
+
+                                <span class="relation-label" data-i18n="granddaughterOf">
+                                    Granddaughter of
+                                </span>
+
+                                <h4 class="family-member-name">
+                                    Haji Naik Rahim
+                                </h4>
+
+                            </div>
+
+
+                            <!-- Uncles and Aunts -->
+                            <div class="family-relation">
+
+                                <span class="relation-label" data-i18n="nieceOf">
+                                    Niece of
+                                </span>
+
+                                <div class="family-members-list">
+
+                                    <span class="family-member-name">
+                                        Muzaffar Iqbal
+                                    </span>
+
+                                    <span class="family-member-name">
+                                        Kausar Iqbal
+                                    </span>
+
+                                    <span class="family-member-name">
+                                        Saleem Iqbal
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Brothers -->
+                            <div class="family-relation">
+
+                                <span class="relation-label" data-i18n="sisterOf">
+                                    Sister of
+                                </span>
+
+                                <div class="family-members-list">
+
+                                    <span class="family-member-name">
+                                        Abdullah Shah Paracha
+                                    </span>
+
+                                    <span class="family-member-note">
+                                        (ASP)
+                                    </span>
+
+                                    <span class="family-member-name">
+                                        Saad Iqbal Shah
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Cousins -->
+                            <div class="family-relation">
+
+                                <span class="relation-label" data-i18n="cousinOf">
+                                    Cousin of
+                                </span>
+
+                                <div class="family-members-list">
+
+                                    <span class="family-member-name">
+                                        Mustafa Iqbal Shah
+                                    </span>
+
+                                    <span class="family-member-name">
+                                        Mujtaba Iqbal Shah
+                                    </span>
+
+                                    <span class="family-member-name">
+                                        Hashim Iqbal Shah
+                                    </span>
+
+                                    <span class="family-member-name">
+                                        Murtaza Iqbal Shah
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="family-card-footer">
+
+                            <span data-i18n="familyWithRespect">
+                                Presented with respect and gratitude
+                            </span>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- GROOM'S FAMILY -->
+                    <article
+                        class="family-card groom-family-card"
+                        id="groom-family"
+                        data-reveal
+                    >
+
+                        <div class="family-card-header">
+
+                            <span class="family-card-number">
+                                02
+                            </span>
+
+                            <p class="family-card-eyebrow" data-i18n="groomFamilyEyebrow">
+                                THE GROOM'S FAMILY
+                            </p>
+
+                            <h3 class="family-card-title" data-i18n="ahmadFamily">
+                                Ahmad Family
+                            </h3>
+
+                            <span class="family-card-divider" aria-hidden="true"></span>
+
+                        </div>
+
+
+                        <div class="family-details">
+
+                            <!-- Groom -->
+                            <div class="family-relation groom-identity">
+
+                                <span class="relation-label" data-i18n="groomName">
+                                    Groom
+                                </span>
+
+                                <h4 class="family-member-name groom-name">
+                                    Asfahan Ahmad
+                                </h4>
+
+                            </div>
+
+
+                            <!-- Father -->
+                            <div class="family-relation">
+
+                                <span class="relation-label" data-i18n="sonOf">
+                                    Son of
+                                </span>
+
+                                <h4 class="family-member-name">
+                                    Shafiq Ahmad
+                                </h4>
+
+                            </div>
+
+
+                            <!-- Grandfather -->
+                            <div class="family-relation">
+
+                                <span class="relation-label" data-i18n="grandsonOf">
+                                    Grandson of
+                                </span>
+
+                                <h4 class="family-member-name">
+                                    Nazir Ahmad
+                                </h4>
+
+                            </div>
+
+
+                            <!-- Brother -->
+                            <div class="family-relation">
+
+                                <span class="relation-label" data-i18n="brotherOf">
+                                    Brother of
+                                </span>
+
+                                <h4 class="family-member-name">
+                                    Musa Ahmad
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="family-card-footer">
+
+                            <span data-i18n="familyWithRespect">
+                                Presented with respect and gratitude
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+
+                <!-- Family Closing Statement -->
+                <div class="families-closing" data-reveal>
+
+                    <p data-i18n="familiesClosing">
+                        Together in celebration, united in blessings.
+                    </p>
+
+                </div>
 
             </div>
 
@@ -728,110 +1434,514 @@
 
 
 
-        <!-- =====================================
-             SECTION 05: QURANIC REFERENCES
-        ====================================== -->
+        <!-- ======================================
+             SECTION 06: QURANIC VERSES
+        ======================================= -->
 
-        <section class="quran-section" id="quran">
+        <section
+            class="quran-section section-dark"
+            id="quran"
+            aria-labelledby="quran-title"
+        >
 
             <div class="section-container">
 
-                <p class="section-eyebrow" data-i18n="quran_eyebrow">
-                    DIVINE GUIDANCE
-                </p>
+                <!-- Section Heading -->
+                <div class="section-heading" data-reveal>
 
-                <h2 class="section-title" data-i18n="quran_title">
-                    From the Holy Quran
-                </h2>
+                    <p class="section-eyebrow" data-i18n="quranEyebrow">
+                        GUIDANCE FROM THE HOLY QURAN
+                    </p>
 
-                <p class="section-description" data-i18n="quran_description">
-                    Selected Quranic references concerning
-                    marriage, family, kindness and prayer.
-                </p>
+                    <h2
+                        class="section-title"
+                        id="quran-title"
+                        data-i18n="quranTitle"
+                    >
+                        Words of Blessings
+                    </h2>
 
+                    <p class="section-description" data-i18n="quranDescription">
+                        Selected Quranic verses reflecting
+                        love, mercy, family and righteousness.
+                    </p>
 
-                <div class="religious-references-grid">
-
-                    <article class="reference-card">
-
-                        <h3>Ar-Rum</h3>
-
-                        <p class="reference-number">
-                            Surah 30 · Ayah 21
-                        </p>
-
-                        <p data-i18n="quran_topic_1">
-                            Love, mercy and tranquillity between spouses.
-                        </p>
-
-                    </article>
-
-
-                    <article class="reference-card">
-
-                        <h3>An-Nur</h3>
-
-                        <p class="reference-number">
-                            Surah 24 · Ayah 32
-                        </p>
-
-                        <p data-i18n="quran_topic_2">
-                            Encouragement towards marriage.
-                        </p>
-
-                    </article>
-
-
-                    <article class="reference-card">
-
-                        <h3>An-Nisa</h3>
-
-                        <p class="reference-number">
-                            Surah 4 · Ayah 4
-                        </p>
-
-                        <p data-i18n="quran_topic_3">
-                            The rights of women regarding their bridal gifts.
-                        </p>
-
-                    </article>
-
-
-                    <article class="reference-card">
-
-                        <h3>An-Nisa</h3>
-
-                        <p class="reference-number">
-                            Surah 4 · Ayah 19
-                        </p>
-
-                        <p data-i18n="quran_topic_4">
-                            Kindness and good treatment.
-                        </p>
-
-                    </article>
-
-
-                    <article class="reference-card">
-
-                        <h3>Al-Furqan</h3>
-
-                        <p class="reference-number">
-                            Surah 25 · Ayah 74
-                        </p>
-
-                        <p data-i18n="quran_topic_5">
-                            Prayer for righteous spouses and descendants.
-                        </p>
-
-                    </article>
+                    <div class="section-title-divider" aria-hidden="true">
+                        <span></span>
+                    </div>
 
                 </div>
 
-                <p class="verification-notice" data-i18n="religious_verification">
-                    Arabic text, translations and reference details
-                    will be checked against reliable sources before publication.
-                </p>
+
+                <!-- Quranic Verses Collection -->
+                <div class="quran-verses-grid">
+
+
+                    <!-- VERSE 01: AR-RUM 30:21 -->
+                    <article
+                        class="quran-card"
+                        id="quran-ar-rum-21"
+                        data-quran-reference="30:21"
+                        data-reveal
+                    >
+
+                        <div class="quran-card-header">
+
+                            <span class="quran-card-number">
+                                01
+                            </span>
+
+                            <span class="quran-reference">
+                                30 : 21
+                            </span>
+
+                        </div>
+
+
+                        <div class="quran-card-content">
+
+                            <h3 class="quran-surah-name" data-i18n="surahArRum">
+                                Surah Ar-Rum
+                            </h3>
+
+
+                            <p class="quran-arabic" lang="ar" dir="rtl">
+                                <!-- Verified Arabic text will be inserted before publication. -->
+                            </p>
+
+
+                            <div class="quran-translation">
+
+                                <h4 data-i18n="urduTranslation">
+                                    Urdu Translation
+                                </h4>
+
+                                <p
+                                    class="quran-translation-text"
+                                    data-quran-translation="ur"
+                                    lang="ur"
+                                    dir="rtl"
+                                >
+                                </p>
+
+                            </div>
+
+
+                            <div class="quran-translation">
+
+                                <h4 data-i18n="englishTranslation">
+                                    English Translation
+                                </h4>
+
+                                <p
+                                    class="quran-translation-text"
+                                    data-quran-translation="en"
+                                    lang="en"
+                                    dir="ltr"
+                                >
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="quran-card-footer">
+
+                            <span data-i18n="surahReference">
+                                Surah Reference
+                            </span>
+
+                            <strong>30:21</strong>
+
+                            <a
+                                href="https://quran.com/30/21"
+                                class="quran-reference-link"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                data-i18n="openVerse"
+                            >
+                                Open Verse
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- VERSE 02: AN-NUR 24:32 -->
+                    <article
+                        class="quran-card"
+                        id="quran-an-nur-32"
+                        data-quran-reference="24:32"
+                        data-reveal
+                    >
+
+                        <div class="quran-card-header">
+
+                            <span class="quran-card-number">
+                                02
+                            </span>
+
+                            <span class="quran-reference">
+                                24 : 32
+                            </span>
+
+                        </div>
+
+
+                        <div class="quran-card-content">
+
+                            <h3 class="quran-surah-name" data-i18n="surahAnNur">
+                                Surah An-Nur
+                            </h3>
+
+
+                            <p class="quran-arabic" lang="ar" dir="rtl">
+                            </p>
+
+
+                            <div class="quran-translation">
+
+                                <h4 data-i18n="urduTranslation">
+                                    Urdu Translation
+                                </h4>
+
+                                <p
+                                    class="quran-translation-text"
+                                    data-quran-translation="ur"
+                                    lang="ur"
+                                    dir="rtl"
+                                ></p>
+
+                            </div>
+
+
+                            <div class="quran-translation">
+
+                                <h4 data-i18n="englishTranslation">
+                                    English Translation
+                                </h4>
+
+                                <p
+                                    class="quran-translation-text"
+                                    data-quran-translation="en"
+                                    lang="en"
+                                    dir="ltr"
+                                ></p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="quran-card-footer">
+
+                            <span data-i18n="surahReference">
+                                Surah Reference
+                            </span>
+
+                            <strong>24:32</strong>
+
+                            <a
+                                href="https://quran.com/24/32"
+                                class="quran-reference-link"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                data-i18n="openVerse"
+                            >
+                                Open Verse
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- VERSE 03: AN-NISA 4:4 -->
+                    <article
+                        class="quran-card"
+                        id="quran-an-nisa-4"
+                        data-quran-reference="4:4"
+                        data-reveal
+                    >
+
+                        <div class="quran-card-header">
+
+                            <span class="quran-card-number">
+                                03
+                            </span>
+
+                            <span class="quran-reference">
+                                04 : 04
+                            </span>
+
+                        </div>
+
+
+                        <div class="quran-card-content">
+
+                            <h3 class="quran-surah-name" data-i18n="surahAnNisa">
+                                Surah An-Nisa
+                            </h3>
+
+
+                            <p class="quran-arabic" lang="ar" dir="rtl">
+                            </p>
+
+
+                            <div class="quran-translation">
+
+                                <h4 data-i18n="urduTranslation">
+                                    Urdu Translation
+                                </h4>
+
+                                <p
+                                    class="quran-translation-text"
+                                    data-quran-translation="ur"
+                                    lang="ur"
+                                    dir="rtl"
+                                ></p>
+
+                            </div>
+
+
+                            <div class="quran-translation">
+
+                                <h4 data-i18n="englishTranslation">
+                                    English Translation
+                                </h4>
+
+                                <p
+                                    class="quran-translation-text"
+                                    data-quran-translation="en"
+                                    lang="en"
+                                    dir="ltr"
+                                ></p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="quran-card-footer">
+
+                            <span data-i18n="surahReference">
+                                Surah Reference
+                            </span>
+
+                            <strong>4:4</strong>
+
+                            <a
+                                href="https://quran.com/4/4"
+                                class="quran-reference-link"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                data-i18n="openVerse"
+                            >
+                                Open Verse
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- VERSE 04: AN-NISA 4:19 -->
+                    <article
+                        class="quran-card"
+                        id="quran-an-nisa-19"
+                        data-quran-reference="4:19"
+                        data-reveal
+                    >
+
+                        <div class="quran-card-header">
+
+                            <span class="quran-card-number">
+                                04
+                            </span>
+
+                            <span class="quran-reference">
+                                04 : 19
+                            </span>
+
+                        </div>
+
+
+                        <div class="quran-card-content">
+
+                            <h3 class="quran-surah-name" data-i18n="surahAnNisa">
+                                Surah An-Nisa
+                            </h3>
+
+
+                            <p class="quran-arabic" lang="ar" dir="rtl">
+                            </p>
+
+
+                            <div class="quran-translation">
+
+                                <h4 data-i18n="urduTranslation">
+                                    Urdu Translation
+                                </h4>
+
+                                <p
+                                    class="quran-translation-text"
+                                    data-quran-translation="ur"
+                                    lang="ur"
+                                    dir="rtl"
+                                ></p>
+
+                            </div>
+
+
+                            <div class="quran-translation">
+
+                                <h4 data-i18n="englishTranslation">
+                                    English Translation
+                                </h4>
+
+                                <p
+                                    class="quran-translation-text"
+                                    data-quran-translation="en"
+                                    lang="en"
+                                    dir="ltr"
+                                ></p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="quran-card-footer">
+
+                            <span data-i18n="surahReference">
+                                Surah Reference
+                            </span>
+
+                            <strong>4:19</strong>
+
+                            <a
+                                href="https://quran.com/4/19"
+                                class="quran-reference-link"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                data-i18n="openVerse"
+                            >
+                                Open Verse
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- VERSE 05: AL-FURQAN 25:74 -->
+                    <article
+                        class="quran-card"
+                        id="quran-al-furqan-74"
+                        data-quran-reference="25:74"
+                        data-reveal
+                    >
+
+                        <div class="quran-card-header">
+
+                            <span class="quran-card-number">
+                                05
+                            </span>
+
+                            <span class="quran-reference">
+                                25 : 74
+                            </span>
+
+                        </div>
+
+
+                        <div class="quran-card-content">
+
+                            <h3 class="quran-surah-name" data-i18n="surahAlFurqan">
+                                Surah Al-Furqan
+                            </h3>
+
+
+                            <p class="quran-arabic" lang="ar" dir="rtl">
+                            </p>
+
+
+                            <div class="quran-translation">
+
+                                <h4 data-i18n="urduTranslation">
+                                    Urdu Translation
+                                </h4>
+
+                                <p
+                                    class="quran-translation-text"
+                                    data-quran-translation="ur"
+                                    lang="ur"
+                                    dir="rtl"
+                                ></p>
+
+                            </div>
+
+
+                            <div class="quran-translation">
+
+                                <h4 data-i18n="englishTranslation">
+                                    English Translation
+                                </h4>
+
+                                <p
+                                    class="quran-translation-text"
+                                    data-quran-translation="en"
+                                    lang="en"
+                                    dir="ltr"
+                                ></p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="quran-card-footer">
+
+                            <span data-i18n="surahReference">
+                                Surah Reference
+                            </span>
+
+                            <strong>25:74</strong>
+
+                            <a
+                                href="https://quran.com/25/74"
+                                class="quran-reference-link"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                data-i18n="openVerse"
+                            >
+                                Open Verse
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                </div>
+
+
+                <!-- Quran Information Notice -->
+                <div class="religious-content-notice" data-reveal>
+
+                    <p data-i18n="quranVerificationNotice">
+                        Quranic Arabic text and translations
+                        will be verified against reliable
+                        sources before publication.
+                    </p>
+
+                </div>
 
             </div>
 
@@ -839,66 +1949,253 @@
 
 
 
-        <!-- =====================================
-             SECTION 06: HADITH REFERENCES
-        ====================================== -->
+        <!-- ======================================
+             SECTION 07: HADITH COLLECTION
+        ======================================= -->
 
-        <section class="hadith-section" id="hadith">
+        <section
+            class="hadith-section section-light"
+            id="hadith"
+            aria-labelledby="hadith-title"
+        >
 
             <div class="section-container">
 
-                <p class="section-eyebrow" data-i18n="hadith_eyebrow">
-                    PROPHETIC GUIDANCE
-                </p>
+                <!-- Section Heading -->
+                <div class="section-heading" data-reveal>
 
-                <h2 class="section-title" data-i18n="hadith_title">
-                    From the Hadith
-                </h2>
+                    <p class="section-eyebrow" data-i18n="hadithEyebrow">
+                        WISDOM FROM AUTHENTIC TRADITIONS
+                    </p>
 
-                <p class="section-description" data-i18n="hadith_description">
-                    Selected references concerning marriage
-                    and good character.
-                </p>
+                    <h2
+                        class="section-title"
+                        id="hadith-title"
+                        data-i18n="hadithTitle"
+                    >
+                        Prophetic Guidance
+                    </h2>
+
+                    <p class="section-description" data-i18n="hadithDescription">
+                        Selected narrations presented with
+                        their original references.
+                    </p>
+
+                    <div class="section-title-divider" aria-hidden="true">
+                        <span></span>
+                    </div>
+
+                </div>
 
 
+                <!-- Hadith Cards -->
                 <div class="hadith-grid">
 
-                    <article class="reference-card hadith-card">
 
-                        <h3>Sahih al-Bukhari</h3>
+                    <!-- HADITH 01: SAHIH AL-BUKHARI 5066 -->
+                    <article
+                        class="hadith-card"
+                        id="hadith-bukhari-5066"
+                        data-hadith-reference="bukhari-5066"
+                        data-reveal
+                    >
 
-                        <p class="reference-number">
-                            Hadith 5066
-                        </p>
+                        <div class="hadith-card-header">
 
-                        <p data-i18n="hadith_topic_1">
-                            A reference concerning marriage.
-                        </p>
+                            <span class="hadith-number">
+                                01
+                            </span>
+
+                            <span class="hadith-source">
+                                SAHIH AL-BUKHARI
+                            </span>
+
+                        </div>
+
+
+                        <div class="hadith-card-content">
+
+                            <h3 class="hadith-book-title" data-i18n="bukhariTitle">
+                                Sahih al-Bukhari
+                            </h3>
+
+
+                            <p class="hadith-arabic" lang="ar" dir="rtl">
+                                <!-- Verified Arabic Hadith text will be inserted before publication. -->
+                            </p>
+
+
+                            <div class="hadith-translation">
+
+                                <h4 data-i18n="urduTranslation">
+                                    Urdu Translation
+                                </h4>
+
+                                <p
+                                    class="hadith-translation-text"
+                                    data-hadith-translation="ur"
+                                    lang="ur"
+                                    dir="rtl"
+                                ></p>
+
+                            </div>
+
+
+                            <div class="hadith-translation">
+
+                                <h4 data-i18n="englishTranslation">
+                                    English Translation
+                                </h4>
+
+                                <p
+                                    class="hadith-translation-text"
+                                    data-hadith-translation="en"
+                                    lang="en"
+                                    dir="ltr"
+                                ></p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="hadith-card-footer">
+
+                            <div class="hadith-reference-details">
+
+                                <span data-i18n="hadithReference">
+                                    Hadith Reference
+                                </span>
+
+                                <strong>5066</strong>
+
+                            </div>
+
+
+                            <a
+                                href="https://sunnah.com/bukhari:5066"
+                                class="hadith-reference-link"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                data-i18n="openHadith"
+                            >
+                                View Original Reference
+                            </a>
+
+                        </div>
 
                     </article>
 
 
-                    <article class="reference-card hadith-card">
 
-                        <h3>Jami' at-Tirmidhi</h3>
+                    <!-- HADITH 02: JAMI AT-TIRMIDHI 1162 -->
+                    <article
+                        class="hadith-card"
+                        id="hadith-tirmidhi-1162"
+                        data-hadith-reference="tirmidhi-1162"
+                        data-reveal
+                    >
 
-                        <p class="reference-number">
-                            Hadith 1162
-                        </p>
+                        <div class="hadith-card-header">
 
-                        <p data-i18n="hadith_topic_2">
-                            A reference concerning good character
-                            and treatment of one's family.
-                        </p>
+                            <span class="hadith-number">
+                                02
+                            </span>
+
+                            <span class="hadith-source">
+                                JAMI AT-TIRMIDHI
+                            </span>
+
+                        </div>
+
+
+                        <div class="hadith-card-content">
+
+                            <h3 class="hadith-book-title" data-i18n="tirmidhiTitle">
+                                Jami' at-Tirmidhi
+                            </h3>
+
+
+                            <p class="hadith-arabic" lang="ar" dir="rtl">
+                                <!-- Verified Arabic Hadith text will be inserted before publication. -->
+                            </p>
+
+
+                            <div class="hadith-translation">
+
+                                <h4 data-i18n="urduTranslation">
+                                    Urdu Translation
+                                </h4>
+
+                                <p
+                                    class="hadith-translation-text"
+                                    data-hadith-translation="ur"
+                                    lang="ur"
+                                    dir="rtl"
+                                ></p>
+
+                            </div>
+
+
+                            <div class="hadith-translation">
+
+                                <h4 data-i18n="englishTranslation">
+                                    English Translation
+                                </h4>
+
+                                <p
+                                    class="hadith-translation-text"
+                                    data-hadith-translation="en"
+                                    lang="en"
+                                    dir="ltr"
+                                ></p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="hadith-card-footer">
+
+                            <div class="hadith-reference-details">
+
+                                <span data-i18n="hadithReference">
+                                    Hadith Reference
+                                </span>
+
+                                <strong>1162</strong>
+
+                            </div>
+
+
+                            <a
+                                href="https://sunnah.com/tirmidhi:1162"
+                                class="hadith-reference-link"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                data-i18n="openHadith"
+                            >
+                                View Original Reference
+                            </a>
+
+                        </div>
 
                     </article>
+
 
                 </div>
 
-                <p class="verification-notice" data-i18n="hadith_verification">
-                    Hadith wording, numbering, chapter and grading
-                    must be verified before publication.
-                </p>
+
+                <!-- Hadith Verification Notice -->
+                <div class="religious-content-notice" data-reveal>
+
+                    <p data-i18n="hadithVerificationNotice">
+                        Hadith wording, translations and
+                        authenticity information will be
+                        verified before publication.
+                    </p>
+
+                </div>
 
             </div>
 
@@ -906,135 +2203,218 @@
 
 
 
-        <!-- =====================================
-             SECTION 07: FAMILY MESSAGE
-        ====================================== -->
+        <!-- ======================================
+             SECTION 08: FAMILY MESSAGE
+        ======================================= -->
 
-        <section class="family-message-section" id="message">
+        <section
+            class="family-message-section section-dark"
+            id="family-message"
+            aria-labelledby="family-message-title"
+        >
 
             <div class="section-container">
 
-                <p class="section-eyebrow" data-i18n="message_eyebrow">
-                    WITH LOVE AND GOOD WISHES
-                </p>
 
-                <h2 class="section-title" data-i18n="message_title">
-                    A Message from the Paracha Family
-                </h2>
+                <div class="section-heading" data-reveal>
 
-
-                <!-- English Message -->
-
-                <div class="family-message-content"
-                    data-message-language="en">
-
-                    <p>
-                        With love, sincerity and warm wishes,
-                        the Paracha family shares this special
-                        moment of happiness and gratitude.
+                    <p class="section-eyebrow" data-i18n="familyMessageEyebrow">
+                        A MESSAGE FROM THE FAMILY
                     </p>
 
-                    <p>
-                        Beautiful moments become lasting memories
-                        through love, togetherness and the prayers
-                        of those around us.
-                    </p>
 
-                    <p>
-                        We deeply value the kindness, affection
-                        and good wishes of our relatives, friends
-                        and well-wishers.
-                    </p>
+                    <h2
+                        class="section-title"
+                        id="family-message-title"
+                        data-i18n="familyMessageTitle"
+                    >
+                        With Love and Gratitude
+                    </h2>
 
-                    <p>
-                        May Allah bless this new relationship
-                        with love, peace, mercy and prosperity,
-                        bring goodness to both families and fill
-                        every home with happiness.
-                    </p>
 
-                    <p class="message-signature">
-                        With warm regards,
-                        <strong>The Paracha Family</strong>
-                    </p>
+                    <div class="section-title-divider" aria-hidden="true">
+                        <span></span>
+                    </div>
 
                 </div>
 
 
-                <!-- Urdu Message -->
 
-                <div class="family-message-content"
-                    data-message-language="ur"
-                    lang="ur"
-                    dir="rtl"
-                    hidden>
+                <!-- Family Message Content -->
+                <article class="family-message-card" data-reveal>
 
-                    <p>
-                        بسم اللہ الرحمٰن الرحیم
-                    </p>
 
-                    <p>
-                        خاندانِ پراچہ کی جانب سے آپ سب کے لیے
-                        محبت، خلوص اور نیک تمناؤں کا پیغام۔
-                    </p>
+                    <div class="family-message-opening">
 
-                    <p>
-                        زندگی کے خوبصورت لمحات خوشیوں، محبت
-                        اور اپنوں کی دعاؤں سے مزید یادگار بن
-                        جاتے ہیں۔ یہ خوشی کا موقع ہمارے لیے
-                        شکرگزاری، مسرت اور خاندانی محبت کے
-                        اظہار کا ایک خوبصورت ذریعہ ہے۔
-                    </p>
+                        <p
+                            class="family-message-bismillah"
+                            lang="ar"
+                            dir="rtl"
+                        >
+                            بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+                        </p>
 
-                    <p>
-                        ہم اپنے تمام عزیز و اقارب، دوست احباب
-                        اور خیر خواہوں کی محبت، خلوص اور
-                        نیک تمناؤں کو قدر کی نگاہ سے دیکھتے ہیں۔
-                    </p>
+                    </div>
 
-                    <p>
-                        اللہ تعالیٰ اس نئے رشتے کو محبت،
-                        سکون، رحمت اور برکت سے نوازے، دونوں
-                        خاندانوں کے لیے خیر و عافیت کا ذریعہ
-                        بنائے اور سب کے گھروں کو خوشیوں سے
-                        آباد رکھے۔
-                    </p>
 
-                    <p class="message-signature">
-                        خیر اندیش،
-                        <strong>خاندانِ پراچہ</strong>
-                    </p>
+                    <!-- Approved Urdu Family Message -->
+                    <div
+                        class="family-message-body"
+                        data-family-message="ur"
+                        lang="ur"
+                        dir="rtl"
+                    >
 
-                </div>
+                        <p class="family-message-intro">
+                            خاندانِ پراچہ کی جانب سے آپ سب کے لیے محبت،
+                            خلوص اور نیک تمناؤں کا پیغام۔
+                        </p>
+
+
+                        <p>
+                            زندگی کے خوبصورت لمحات خوشیوں، محبت اور اپنوں
+                            کی دعاؤں سے مزید یادگار بن جاتے ہیں۔ یہ خوشی
+                            کا موقع ہمارے لیے شکرگزاری، مسرت اور خاندانی
+                            محبت کے اظہار کا ایک خوبصورت ذریعہ ہے۔
+                        </p>
+
+
+                        <p>
+                            ہم اپنے تمام عزیز و اقارب، دوست احباب اور
+                            خیر خواہوں کی محبت، خلوص اور نیک تمناؤں کو
+                            قدر کی نگاہ سے دیکھتے ہیں۔
+                        </p>
+
+
+                        <p>
+                            اللہ تعالیٰ اس نئے رشتے کو محبت، سکون، رحمت
+                            اور برکت سے نوازے، دونوں خاندانوں کے لیے
+                            خیر و عافیت کا ذریعہ بنائے اور سب کے گھروں
+                            کو خوشیوں سے آباد رکھے۔
+                        </p>
+
+                    </div>
+
+
+                    <!-- English Version: Pending Approval -->
+                    <div
+                        class="family-message-body"
+                        data-family-message="en"
+                        lang="en"
+                        dir="ltr"
+                        hidden
+                    >
+
+                        <p data-i18n="englishMessagePending">
+                            The approved English version of the family
+                            message will be added before publication.
+                        </p>
+
+                    </div>
+
+
+                    <div class="family-message-signature">
+
+                        <span class="signature-line"></span>
+
+
+                        <p class="family-message-signoff" data-i18n="familySignoff">
+                            خیر اندیش،
+                        </p>
+
+
+                        <h3 class="family-message-family-name" data-i18n="parachaFamily">
+                            Paracha Family
+                        </h3>
+
+                    </div>
+
+
+                </article>
 
             </div>
 
         </section>
 
 
+        <!-- HTML PART 2 OF 3 ENDS HERE -->
+        <!-- PART 3 CONTINUES INSIDE <main> -->
 
-        <!-- =====================================
-             SECTION 08: FINAL BLESSING
-        ====================================== -->
 
-        <section class="blessing-section" id="blessing">
+        <!-- ======================================
+             SECTION 09: FINAL BLESSINGS
+        ======================================= -->
+
+        <section
+            class="blessings-section section-light"
+            id="blessings"
+            aria-labelledby="blessings-title"
+        >
 
             <div class="section-container">
 
-                <p class="blessing-arabic" lang="ar" dir="rtl">
-                    وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ
-                    أَنْفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا
-                    وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً
-                </p>
+                <div class="blessings-content" data-reveal>
 
-                <p class="blessing-reference">
-                    Surah Ar-Rum · 30:21
-                </p>
+                    <p class="section-eyebrow" data-i18n="blessingsEyebrow">
+                        A PRAYER FOR THE FUTURE
+                    </p>
 
-                <p class="blessing-caption" data-i18n="blessing_caption">
-                    May this new journey be filled with
-                    peace, love and blessings.
-                </p>
+                    <h2
+                        class="section-title"
+                        id="blessings-title"
+                        data-i18n="blessingsTitle"
+                    >
+                        A Lifetime of Love and Happiness
+                    </h2>
+
+                    <div class="section-title-divider" aria-hidden="true">
+                        <span></span>
+                    </div>
+
+
+                    <p
+                        class="blessing-dua"
+                        lang="ar"
+                        dir="rtl"
+                    >
+                        بَارَكَ اللَّهُ لَكَ، وَبَارَكَ عَلَيْكَ،
+                        وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ
+                    </p>
+
+
+                    <p
+                        class="blessing-translation"
+                        lang="en"
+                        dir="ltr"
+                        data-i18n="blessingTranslation"
+                    >
+                        May Allah bless you, shower His blessings upon you,
+                        and unite you both in goodness.
+                    </p>
+
+
+                    <p
+                        class="blessing-translation blessing-translation-ur"
+                        lang="ur"
+                        dir="rtl"
+                        data-i18n="blessingTranslationUr"
+                    >
+                        اللہ تعالیٰ آپ کو برکت عطا فرمائے،
+                        آپ پر اپنی رحمتیں نازل فرمائے،
+                        اور آپ دونوں کو خیر و بھلائی کے ساتھ متحد رکھے۔
+                    </p>
+
+
+                    <div class="blessings-closing">
+
+                        <p data-i18n="closingPrayer">
+                            May this new journey be filled with faith,
+                            understanding, patience and endless blessings.
+                        </p>
+
+                    </div>
+
+                </div>
 
             </div>
 
@@ -1045,53 +2425,172 @@
 
 
 
-    <!-- =========================================
-         04. SITE FOOTER
-    ========================================== -->
+    <!-- ======================================
+         SECTION 10: FOOTER
+    ======================================= -->
 
     <footer class="site-footer" id="site-footer">
 
         <div class="footer-container">
 
+
+            <!-- Footer Brand -->
             <div class="footer-brand">
 
-                <h2>
-                    PARACHA
-                </h2>
+                <a
+                    href="#home"
+                    class="footer-logo"
+                    aria-label="Return to homepage"
+                >
+                    <span class="footer-logo-main">
+                        PARACHA
+                    </span>
 
-                <p data-i18n="footer_title">
-                    Wedding Celebration
+                    <span class="footer-logo-subtitle" data-i18n="weddingCelebration">
+                        WEDDING CELEBRATION
+                    </span>
+                </a>
+
+
+                <p class="footer-description" data-i18n="footerDescription">
+                    A celebration of love, family, faith and togetherness.
                 </p>
 
             </div>
 
 
-            <div class="footer-credit">
 
-                <p>
-                    Paracha Wedding Card
+            <!-- Footer Navigation -->
+            <nav
+                class="footer-navigation"
+                aria-label="Footer navigation"
+            >
+
+                <h3 data-i18n="quickLinks">
+                    Quick Links
+                </h3>
+
+
+                <ul>
+
+                    <li>
+                        <a href="#home" data-i18n="navHome">
+                            Home
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#introduction" data-i18n="navIntroduction">
+                            Introduction
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#events" data-i18n="navEvents">
+                            Events
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#families" data-i18n="navFamilies">
+                            Families
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#blessings" data-i18n="navBlessings">
+                            Blessings
+                        </a>
+                    </li>
+
+                </ul>
+
+            </nav>
+
+
+
+            <!-- Footer Event Information -->
+            <div class="footer-event-information">
+
+                <h3 data-i18n="weddingEvents">
+                    Wedding Events
+                </h3>
+
+
+                <ul>
+
+                    <li>
+                        <a href="#nikah-event" data-i18n="eventNikah">
+                            Nikah
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#baraat-event" data-i18n="eventBaraat">
+                            Baraat
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#walima-event" data-i18n="eventWalima">
+                            Walima
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+
+            <!-- Footer Closing Message -->
+            <div class="footer-closing">
+
+                <p
+                    class="footer-bismillah"
+                    lang="ar"
+                    dir="rtl"
+                >
+                    بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
                 </p>
 
-                <p>
-                    By ASP Group of Businesses
-                </p>
 
-                <p>
-                    Your Satisfaction Our Passion
+                <p data-i18n="footerPrayer">
+                    With prayers and best wishes.
                 </p>
 
             </div>
 
 
-            <div class="footer-bottom">
+        </div>
 
-                <p>
-                    &copy; <span id="current-year">2026</span>
-                    Paracha Wedding Card.
+
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+
+            <div class="footer-bottom-inner">
+
+                <p class="copyright-text">
+
+                    <span data-i18n="copyright">
+                        © 2027 Paracha Wedding Celebration.
+                        All rights reserved.
+                    </span>
+
                 </p>
 
-                <p data-i18n="footer_rights">
-                    All Rights Reserved.
+
+                <p class="footer-credit">
+
+                    <span data-i18n="developedBy">
+                        Designed and developed by
+                    </span>
+
+                    <span class="developer-name">
+                        ASP
+                    </span>
+
                 </p>
 
             </div>
@@ -1101,20 +2600,63 @@
     </footer>
 
 
-    <!-- =========================================
-         05. INTERFACE STATUS
-    ========================================== -->
+
+    <!-- ======================================
+         BACK TO TOP BUTTON
+    ======================================= -->
+
+    <button
+        type="button"
+        class="back-to-top"
+        id="back-to-top"
+        aria-label="Back to top"
+        title="Back to top"
+    >
+
+        <span aria-hidden="true">
+            ↑
+        </span>
+
+    </button>
+
+
+
+    <!-- ======================================
+         ACCESSIBILITY: LIVE ANNOUNCEMENTS
+    ======================================= -->
 
     <div
-        class="site-status"
-        id="site-status"
-        role="status"
+        class="visually-hidden"
+        id="accessibility-announcer"
         aria-live="polite"
         aria-atomic="true"
-        hidden>
-    </div>
+    ></div>
 
+
+
+    <!-- ======================================
+         NO JAVASCRIPT NOTICE
+    ======================================= -->
+
+    <noscript>
+
+        <div class="noscript-message">
+
+            <p>
+                This website requires JavaScript for language switching,
+                countdowns and interactive features.
+                Please enable JavaScript in your browser.
+            </p>
+
+        </div>
+
+    </noscript>
+
+
+
+    <!-- ======================================
+         END OF DOCUMENT
+    ======================================= -->
 
 </body>
-
 </html>
