@@ -1,1110 +1,881 @@
 
 /* =========================================================
-   PARACHA WEDDING CARD BY ASP
-   File: assets/js/script.js
-   PART 1 OF 4 — CORE SETUP & LANGUAGE SYSTEM
-   ========================================================= */
+   PARACHA WEDDING WEBSITE
+   JAVASCRIPT PART 1 OF 4
+   Core Setup & Language System
+========================================================= */
 
-"use strict";
+(() => {
+  "use strict";
 
-/* ---------------------------------------------------------
-   1. APPLICATION CONFIGURATION
-   --------------------------------------------------------- */
+  /* =======================================================
+     1. CENTRAL WEBSITE CONFIGURATION
+  ======================================================= */
 
-const ParachaWedding = (() => {
-  const CONFIG = Object.freeze({
-    storageKey: "paracha-wedding-language",
+  const WeddingSite = window.WeddingSite || {};
+
+  WeddingSite.config = {
     defaultLanguage: "en",
+
     supportedLanguages: ["en", "ur"],
-    timezone: "Asia/Karachi"
-  });
 
-  /* -------------------------------------------------------
-     2. SAFE DOM HELPERS
-     ------------------------------------------------------- */
+    storageKey: "paracha-wedding-language",
 
-  const DOM = {
-    html: document.documentElement,
+    timezone: "Asia/Karachi",
 
-    get(selector, parent = document) {
-      return parent.querySelector(selector);
-    },
+    events: {
+      nikah: {
+        date: "2027-03-06"
+      },
 
-    getAll(selector, parent = document) {
-      return Array.from(parent.querySelectorAll(selector));
-    },
+      baraat: {
+        date: "2027-04-03"
+      },
 
-    getById(id) {
-      return document.getElementById(id);
+      walima: {
+        date: "2027-04-04"
+      }
     }
   };
 
-  /* -------------------------------------------------------
-     3. TRANSLATION DICTIONARY
-     ------------------------------------------------------- */
 
-  const TRANSLATIONS = {
+  /* =======================================================
+     2. WEBSITE STATE
+  ======================================================= */
+
+  WeddingSite.state = WeddingSite.state || {
+    language: WeddingSite.config.defaultLanguage,
+
+    isMenuOpen: false,
+
+    countdownIntervals: [],
+
+    revealObserver: null
+  };
+
+
+  /* =======================================================
+     3. TRANSLATION DATABASE
+  ======================================================= */
+
+  WeddingSite.translations = {
+
+    /* -------------------------------------------------------
+       ENGLISH
+    ------------------------------------------------------- */
+
     en: {
-      "site.title": "Paracha Wedding Card",
-      "site.brand": "Paracha Wedding",
-      "site.tagline": "A Celebration of Togetherness",
 
-      "nav.home": "Home",
       "nav.introduction": "Introduction",
       "nav.events": "Events",
-      "nav.families": "Families",
-      "nav.blessings": "Blessings",
+      "nav.blessings": "Blessings & Prayers",
 
-      "hero.eyebrow": "A Celebration of Love and Togetherness",
-      "hero.title": "Together with Our Families",
-      "hero.description": "With the blessings of Allah, we invite you to share in the joy of our wedding celebrations.",
-      "hero.scroll": "Explore the Celebration",
+      "common.backToTop": "Back to top",
+      "common.openMenu": "Open navigation menu",
+      "common.closeMenu": "Close navigation menu",
 
-      "introduction.title": "With the Blessings of Allah",
-      "introduction.description": "Two families, one beautiful celebration, and a lifetime of prayers and togetherness.",
+      "hero.eyebrow": "A Celebration of Love & Family",
+      "hero.title": "A Beautiful Beginning",
+      "hero.subtitle": "Two families, one celebration, and a lifetime of blessings.",
+      "hero.introduction": "Two Families, One Celebration",
 
-      "events.title": "Wedding Celebrations",
-      "events.subtitle": "Three special occasions, shared with family and friends.",
+      "hero.explore": "Explore Our Celebration",
+      "hero.viewEvents": "View Events",
 
-      "event.nikah": "Nikah",
-      "event.baraat": "Baraat",
-      "event.walima": "Walima",
+      "family.heading": "The Families",
+      "family.subtitle": "A union celebrated with the love and blessings of two families.",
+      "family.bride": "Bride's Family",
+      "family.groom": "Groom's Family",
 
-      "event.date": "Date",
-      "event.day": "Day",
-      "event.time": "Time",
-      "event.venue": "Venue",
-      "event.coming_soon": "Coming Soon",
-      "event.countdown": "Countdown",
-      "event.days": "Days",
-      "event.hours": "Hours",
-      "event.minutes": "Minutes",
-      "event.seconds": "Seconds",
-      "event.countdown_started": "This celebration has begun.",
-      "event.countdown_completed": "This event date has passed.",
-      "event.hijri_note": "Hijri dates are expected dates and remain subject to the official moon-sighting announcement in Pakistan.",
+      "events.eyebrow": "Save the Dates",
+      "events.heading": "Wedding Celebrations",
+      "events.subtitle": "Three special occasions, each marking a beautiful chapter in this journey.",
 
-      "families.title": "The Families",
-      "families.bride": "Bride's Family",
-      "families.groom": "Groom's Family",
-      "families.daughter_of": "Daughter of",
-      "families.granddaughter_of": "Granddaughter of",
-      "families.niece_of": "Niece of",
-      "families.sister_of": "Sister of",
-      "families.cousin_of": "Cousin of",
-      "families.son_of": "Son of",
-      "families.grandson_of": "Grandson of",
-      "families.brother_of": "Brother of",
+      "events.nikah": "Nikah",
+      "events.baraat": "Baraat",
+      "events.walima": "Walima",
 
-      "quran.title": "Guidance from the Holy Quran",
-      "quran.subtitle": "Verses about marriage, love, mercy and family life.",
+      "events.nikahSubtitle": "The Sacred Union",
+      "events.baraatSubtitle": "The Wedding Celebration",
+      "events.walimaSubtitle": "A Celebration of Togetherness",
 
-      "hadith.title": "Sayings of the Prophet Muhammad ﷺ",
-      "hadith.subtitle": "Prophetic guidance on marriage and family life.",
+      "events.date": "Date",
+      "events.time": "Time",
+      "events.venue": "Venue",
 
-      "family_message.title": "A Message from Our Families",
+      "events.comingSoon": "Coming Soon",
+      "events.expectedDate": "Expected Islamic date",
 
-      "blessings.title": "Prayers and Blessings",
-      "blessings.subtitle": "May Allah bless this union and grant the couple a life filled with faith, love and mercy.",
+      "countdown.title": "Countdown to the Celebration",
+      "countdown.days": "Days",
+      "countdown.hours": "Hours",
+      "countdown.minutes": "Minutes",
+      "countdown.seconds": "Seconds",
+      "countdown.awaiting": "The celebration begins soon.",
+      "countdown.dateReached": "The celebration date has arrived.",
 
-      "footer.invitation": "Your presence and prayers will be an honour to our families.",
-      "footer.rights": "All rights reserved.",
-      "footer.made_by": "Presented by ASP",
+      "blessings.eyebrow": "With Prayers & Gratitude",
+      "blessings.heading": "Blessings & Prayers",
+      "blessings.familyMessage": "A Message from Our Families",
 
-      "button.back_to_top": "Back to top",
-      "button.open_menu": "Open navigation menu",
-      "button.close_menu": "Close navigation menu",
+      "quran.heading": "Words from the Holy Quran",
+      "quran.subtitle": "Verses of guidance, love, mercy, and blessings.",
+      "quran.reference": "Quran Reference",
+      "quran.openVerse": "Open Verse",
 
-      "accessibility.language_changed": "Language changed to English.",
-      "accessibility.menu_opened": "Navigation menu opened.",
-      "accessibility.menu_closed": "Navigation menu closed."
+      "hadith.heading": "Sayings of the Prophet ﷺ",
+      "hadith.subtitle": "Guidance and wisdom from the Sunnah.",
+      "hadith.reference": "Hadith Reference",
+      "hadith.openHadith": "Open Hadith",
+
+      "dua.heading": "A Special Prayer",
+      "dua.subtitle": "May Allah bless this union.",
+
+      "footer.description": "A celebration of love, family, and blessings.",
+      "footer.madeWith": "With love and prayers",
+      "footer.copyright": "All rights reserved."
     },
 
-    ur: {
-      "site.title": "پاراچہ ویڈنگ کارڈ",
-      "site.brand": "پاراچہ ویڈنگ",
-      "site.tagline": "خوشیوں اور رشتوں کا جشن",
 
-      "nav.home": "ہوم",
+    /* -------------------------------------------------------
+       URDU
+    ------------------------------------------------------- */
+
+    ur: {
+
       "nav.introduction": "تعارف",
       "nav.events": "تقریبات",
-      "nav.families": "خاندان",
-      "nav.blessings": "دعائیں",
+      "nav.blessings": "دعائیں اور برکتیں",
 
-      "hero.eyebrow": "محبت اور اپنائیت کا خوبصورت جشن",
-      "hero.title": "اپنے خاندانوں کے ساتھ",
-      "hero.description": "اللہ تعالیٰ کے فضل و کرم سے ہم آپ کو اپنی شادی کی خوشیوں میں شرکت کی دعوت دیتے ہیں۔",
-      "hero.scroll": "تقریبات دیکھیے",
+      "common.backToTop": "اوپر جائیں",
+      "common.openMenu": "نیویگیشن مینو کھولیں",
+      "common.closeMenu": "نیویگیشن مینو بند کریں",
 
-      "introduction.title": "اللہ تعالیٰ کے فضل و کرم سے",
-      "introduction.description": "دو خاندان، ایک خوبصورت تقریب اور زندگی بھر کی دعاؤں اور اپنائیت کا سفر۔",
+      "hero.eyebrow": "محبت اور خاندان کا جشن",
+      "hero.title": "ایک خوبصورت آغاز",
+      "hero.subtitle": "دو خاندان، ایک خوشی اور برکتوں سے بھرا ایک نیا سفر۔",
+      "hero.introduction": "دو خاندان، ایک جشن",
 
-      "events.title": "شادی کی تقریبات",
-      "events.subtitle": "تین خاص مواقع، خاندان اور عزیز و اقارب کے ساتھ۔",
+      "hero.explore": "تقریبات دیکھیں",
+      "hero.viewEvents": "تقریبات کی تفصیل",
 
-      "event.nikah": "نکاح",
-      "event.baraat": "بارات",
-      "event.walima": "ولیمہ",
+      "family.heading": "دونوں خاندان",
+      "family.subtitle": "دو خاندانوں کی محبت اور دعاؤں کے ساتھ ایک خوبصورت رشتہ۔",
+      "family.bride": "دلہن کا خاندان",
+      "family.groom": "دولہا کا خاندان",
 
-      "event.date": "تاریخ",
-      "event.day": "دن",
-      "event.time": "وقت",
-      "event.venue": "مقام",
-      "event.coming_soon": "جلد بتایا جائے گا",
-      "event.countdown": "باقی وقت",
-      "event.days": "دن",
-      "event.hours": "گھنٹے",
-      "event.minutes": "منٹ",
-      "event.seconds": "سیکنڈ",
-      "event.countdown_started": "یہ تقریب شروع ہو چکی ہے۔",
-      "event.countdown_completed": "اس تقریب کی تاریخ گزر چکی ہے۔",
-      "event.hijri_note": "ہجری تاریخیں متوقع ہیں اور پاکستان میں چاند نظر آنے کے سرکاری اعلان سے مشروط ہیں۔",
+      "events.eyebrow": "تاریخیں محفوظ رکھیں",
+      "events.heading": "شادی کی تقریبات",
+      "events.subtitle": "تین خصوصی تقریبات، جو اس خوبصورت سفر کے اہم مراحل ہیں۔",
 
-      "families.title": "دونوں خاندان",
-      "families.bride": "دلہن کا خاندان",
-      "families.groom": "دولہا کا خاندان",
-      "families.daughter_of": "صاحبزادی",
-      "families.granddaughter_of": "پوتی",
-      "families.niece_of": "بھتیجی",
-      "families.sister_of": "بہن",
-      "families.cousin_of": "کزن",
-      "families.son_of": "فرزند",
-      "families.grandson_of": "پوتا",
-      "families.brother_of": "بھائی",
+      "events.nikah": "نکاح",
+      "events.baraat": "بارات",
+      "events.walima": "ولیمہ",
 
-      "quran.title": "قرآنِ کریم کی رہنمائی",
-      "quran.subtitle": "نکاح، محبت، رحمت اور خاندانی زندگی کے متعلق آیات۔",
+      "events.nikahSubtitle": "مبارک اور مقدس رشتہ",
+      "events.baraatSubtitle": "شادی کی خوشی",
+      "events.walimaSubtitle": "خوشیوں کی دعوت",
 
-      "hadith.title": "رسول اللہ ﷺ کی احادیث",
-      "hadith.subtitle": "نکاح اور خاندانی زندگی کے بارے میں نبوی رہنمائی۔",
+      "events.date": "تاریخ",
+      "events.time": "وقت",
+      "events.venue": "مقام",
 
-      "family_message.title": "خاندانوں کی جانب سے پیغام",
+      "events.comingSoon": "تفصیلات جلد بتائی جائیں گی",
+      "events.expectedDate": "متوقع اسلامی تاریخ",
 
-      "blessings.title": "دعائیں اور نیک تمنائیں",
-      "blessings.subtitle": "اللہ تعالیٰ اس رشتے میں برکت عطا فرمائے اور جوڑے کو ایمان، محبت اور رحمت سے بھرپور زندگی نصیب فرمائے۔",
+      "countdown.title": "تقریب شروع ہونے میں باقی وقت",
+      "countdown.days": "دن",
+      "countdown.hours": "گھنٹے",
+      "countdown.minutes": "منٹ",
+      "countdown.seconds": "سیکنڈ",
+      "countdown.awaiting": "تقریب کا وقت قریب آ رہا ہے۔",
+      "countdown.dateReached": "تقریب کی تاریخ آ گئی ہے۔",
 
-      "footer.invitation": "آپ کی شرکت اور دعائیں ہمارے خاندانوں کے لیے باعثِ عزت ہوں گی۔",
-      "footer.rights": "تمام حقوق محفوظ ہیں۔",
-      "footer.made_by": "ASP کی جانب سے پیش کردہ",
+      "blessings.eyebrow": "دعاؤں اور شکرگزاری کے ساتھ",
+      "blessings.heading": "دعائیں اور برکتیں",
+      "blessings.familyMessage": "خاندانوں کی جانب سے پیغام",
 
-      "button.back_to_top": "اوپر جائیں",
-      "button.open_menu": "نیویگیشن مینو کھولیں",
-      "button.close_menu": "نیویگیشن مینو بند کریں",
+      "quran.heading": "قرآنِ کریم کی آیات",
+      "quran.subtitle": "ہدایت، محبت، رحمت اور برکتوں سے متعلق آیات۔",
+      "quran.reference": "قرآنی حوالہ",
+      "quran.openVerse": "آیت کھولیں",
 
-      "accessibility.language_changed": "زبان اردو کر دی گئی ہے۔",
-      "accessibility.menu_opened": "نیویگیشن مینو کھول دیا گیا ہے۔",
-      "accessibility.menu_closed": "نیویگیشن مینو بند کر دیا گیا ہے۔"
+      "hadith.heading": "رسول اللہ ﷺ کے ارشادات",
+      "hadith.subtitle": "سنتِ نبوی ﷺ سے رہنمائی اور حکمت۔",
+      "hadith.reference": "حدیث کا حوالہ",
+      "hadith.openHadith": "حدیث کھولیں",
+
+      "dua.heading": "خصوصی دعا",
+      "dua.subtitle": "اللہ تعالیٰ اس رشتے کو برکت عطا فرمائے۔",
+
+      "footer.description": "محبت، خاندان اور برکتوں کا ایک خوبصورت جشن۔",
+      "footer.madeWith": "محبت اور دعاؤں کے ساتھ",
+      "footer.copyright": "جملہ حقوق محفوظ ہیں۔"
     }
+
   };
 
-  /* -------------------------------------------------------
-     4. LANGUAGE PREFERENCE
-     ------------------------------------------------------- */
 
-  function getSavedLanguage() {
+  /* =======================================================
+     4. SAFE LOCAL STORAGE ACCESS
+  ======================================================= */
+
+  function readSavedLanguage() {
     try {
-      const savedLanguage = window.localStorage.getItem(
-        CONFIG.storageKey
+      const savedLanguage = localStorage.getItem(
+        WeddingSite.config.storageKey
       );
 
-      if (CONFIG.supportedLanguages.includes(savedLanguage)) {
+      if (
+        WeddingSite.config.supportedLanguages.includes(savedLanguage)
+      ) {
         return savedLanguage;
       }
+
     } catch (error) {
       console.warn(
-        "[Paracha Wedding] Language preference could not be read:",
+        "Language preference could not be read.",
         error
       );
     }
 
-    return null;
+    return WeddingSite.config.defaultLanguage;
   }
 
-  function getBrowserLanguage() {
-    const browserLanguage =
-      navigator.language ||
-      (Array.isArray(navigator.languages)
-        ? navigator.languages[0]
-        : "") ||
-      CONFIG.defaultLanguage;
-
-    return browserLanguage.toLowerCase().startsWith("ur")
-      ? "ur"
-      : "en";
-  }
 
   function saveLanguage(language) {
     try {
-      window.localStorage.setItem(CONFIG.storageKey, language);
+      localStorage.setItem(
+        WeddingSite.config.storageKey,
+        language
+      );
+
     } catch (error) {
       console.warn(
-        "[Paracha Wedding] Language preference could not be saved:",
+        "Language preference could not be saved.",
         error
       );
     }
   }
 
-  /* -------------------------------------------------------
+
+  /* =======================================================
      5. TRANSLATION LOOKUP
-     ------------------------------------------------------- */
+  ======================================================= */
 
-  function translate(key, language = currentLanguage) {
-    const selectedDictionary = TRANSLATIONS[language];
+  function getTranslation(key, language) {
+    const selectedLanguage =
+      language || WeddingSite.state.language;
 
-    if (
-      selectedDictionary &&
-      Object.prototype.hasOwnProperty.call(selectedDictionary, key)
-    ) {
-      return selectedDictionary[key];
-    }
+    const selectedDictionary =
+      WeddingSite.translations[selectedLanguage] || {};
 
-    const englishFallback = TRANSLATIONS.en[key];
+    const englishDictionary =
+      WeddingSite.translations.en || {};
 
-    if (typeof englishFallback === "string") {
-      return englishFallback;
-    }
-
-    return null;
+    return (
+      selectedDictionary[key] ||
+      englishDictionary[key] ||
+      key
+    );
   }
 
-  /* -------------------------------------------------------
-     6. APPLY TRANSLATIONS TO THE PAGE
-     ------------------------------------------------------- */
 
-  function applyTranslations(language) {
-    const dictionary = TRANSLATIONS[language];
+  /* =======================================================
+     6. APPLY TEXT TRANSLATIONS
+  ======================================================= */
 
-    if (!dictionary) {
-      console.error(
-        `[Paracha Wedding] Unsupported language: ${language}`
+  function applyTextTranslations(language) {
+    const elements = document.querySelectorAll("[data-i18n]");
+
+    elements.forEach((element) => {
+      const key = element.getAttribute("data-i18n");
+
+      if (!key) return;
+
+      const translatedText = getTranslation(key, language);
+
+      element.textContent = translatedText;
+    });
+  }
+
+
+  /* =======================================================
+     7. APPLY ACCESSIBILITY TRANSLATIONS
+  ======================================================= */
+
+  function applyAccessibilityTranslations(language) {
+
+    const elements = document.querySelectorAll(
+      "[data-i18n-aria-label]"
+    );
+
+    elements.forEach((element) => {
+      const key = element.getAttribute(
+        "data-i18n-aria-label"
       );
+
+      if (!key) return;
+
+      element.setAttribute(
+        "aria-label",
+        getTranslation(key, language)
+      );
+    });
+  }
+
+
+  /* =======================================================
+     8. UPDATE LANGUAGE BUTTONS
+  ======================================================= */
+
+  function updateLanguageButtons(language) {
+
+    const buttons = document.querySelectorAll(
+      "[data-language]"
+    );
+
+    buttons.forEach((button) => {
+
+      const buttonLanguage = button.getAttribute(
+        "data-language"
+      );
+
+      const isActive = buttonLanguage === language;
+
+      button.classList.toggle("is-active", isActive);
+
+      button.setAttribute(
+        "aria-pressed",
+        String(isActive)
+      );
+
+    });
+  }
+
+
+  /* =======================================================
+     9. SET DOCUMENT LANGUAGE & DIRECTION
+  ======================================================= */
+
+  function updateDocumentLanguage(language) {
+
+    const root = document.documentElement;
+
+    root.lang = language;
+
+    root.dir = language === "ur" ? "rtl" : "ltr";
+
+    document.body.classList.toggle(
+      "language-urdu",
+      language === "ur"
+    );
+
+    document.body.classList.toggle(
+      "language-english",
+      language === "en"
+    );
+  }
+
+
+  /* =======================================================
+     10. MAIN LANGUAGE FUNCTION
+  ======================================================= */
+
+  function setLanguage(language, options = {}) {
+
+    if (
+      !WeddingSite.config.supportedLanguages.includes(language)
+    ) {
+      console.warn("Unsupported language:", language);
       return false;
     }
 
-    DOM.html.lang = language;
-    DOM.html.dir = language === "ur" ? "rtl" : "ltr";
+    WeddingSite.state.language = language;
 
-    DOM.getAll("[data-i18n]").forEach((element) => {
-      const key = element.getAttribute("data-i18n");
-      const translatedText = translate(key, language);
+    updateDocumentLanguage(language);
 
-      if (translatedText !== null) {
-        element.textContent = translatedText;
-      }
-    });
+    applyTextTranslations(language);
 
-    DOM.getAll("[data-i18n-aria-label]").forEach((element) => {
-      const key = element.getAttribute("data-i18n-aria-label");
-      const translatedText = translate(key, language);
+    applyAccessibilityTranslations(language);
 
-      if (translatedText !== null) {
-        element.setAttribute("aria-label", translatedText);
-      }
-    });
+    updateLanguageButtons(language);
 
-    DOM.getAll("[data-i18n-title]").forEach((element) => {
-      const key = element.getAttribute("data-i18n-title");
-      const translatedText = translate(key, language);
-
-      if (translatedText !== null) {
-        element.setAttribute("title", translatedText);
-      }
-    });
-
-    DOM.getAll("[data-i18n-placeholder]").forEach((element) => {
-      const key = element.getAttribute("data-i18n-placeholder");
-      const translatedText = translate(key, language);
-
-      if (translatedText !== null) {
-        element.setAttribute("placeholder", translatedText);
-      }
-    });
-
-    DOM.getAll("[data-language]").forEach((button) => {
-      const isSelected =
-        button.getAttribute("data-language") === language;
-
-      button.classList.toggle("is-active", isSelected);
-      button.setAttribute(
-        "aria-pressed",
-        isSelected ? "true" : "false"
-      );
-    });
-
-    currentLanguage = language;
+    if (options.save !== false) {
+      saveLanguage(language);
+    }
 
     document.dispatchEvent(
-      new CustomEvent("paracha:languagechange", {
-        detail: { language }
+      new CustomEvent("wedding:languageChanged", {
+        detail: {
+          language: language,
+          direction: language === "ur" ? "rtl" : "ltr"
+        }
       })
     );
 
     return true;
   }
 
-  /* -------------------------------------------------------
-     7. CHANGE WEBSITE LANGUAGE
-     ------------------------------------------------------- */
 
-  let currentLanguage = CONFIG.defaultLanguage;
+  /* =======================================================
+     11. LANGUAGE BUTTON EVENTS
+  ======================================================= */
 
-  function setLanguage(language, options = {}) {
-    if (!CONFIG.supportedLanguages.includes(language)) {
-      console.warn(
-        `[Paracha Wedding] Language "${language}" is not supported.`
-      );
-      return false;
-    }
+  function initializeLanguageButtons() {
 
-    const successfullyApplied = applyTranslations(language);
+    const buttons = document.querySelectorAll(
+      "[data-language]"
+    );
 
-    if (!successfullyApplied) {
-      return false;
-    }
+    buttons.forEach((button) => {
 
-    if (options.save !== false) {
-      saveLanguage(language);
-    }
+      button.addEventListener("click", () => {
 
-    return true;
+        const language = button.getAttribute(
+          "data-language"
+        );
+
+        setLanguage(language);
+
+      });
+
+    });
+
   }
 
-  /* -------------------------------------------------------
-     8. INITIALIZE LANGUAGE SYSTEM
-     ------------------------------------------------------- */
 
-  function initializeLanguage() {
-    const savedLanguage = getSavedLanguage();
+  /* =======================================================
+     12. INITIALIZE LANGUAGE SYSTEM
+  ======================================================= */
 
-    const initialLanguage =
-      savedLanguage || getBrowserLanguage();
+  function initializeLanguageSystem() {
 
-    setLanguage(initialLanguage, {
+    const savedLanguage = readSavedLanguage();
+
+    setLanguage(savedLanguage, {
       save: false
     });
 
-    DOM.getAll("[data-language]").forEach((button) => {
-      button.addEventListener("click", () => {
-        const selectedLanguage =
-          button.getAttribute("data-language");
+    initializeLanguageButtons();
 
-        setLanguage(selectedLanguage);
-      });
-    });
   }
 
-  /* -------------------------------------------------------
-     9. PUBLIC APPLICATION INTERFACE
-     ------------------------------------------------------- */
 
-  return {
-    config: CONFIG,
-    dom: DOM,
-    translations: TRANSLATIONS,
+  /* =======================================================
+     13. PUBLIC LANGUAGE METHODS
+  ======================================================= */
 
-    get currentLanguage() {
-      return currentLanguage;
-    },
+  WeddingSite.setLanguage = setLanguage;
 
-    translate,
-    setLanguage,
-    initializeLanguage
+  WeddingSite.getTranslation = getTranslation;
+
+  WeddingSite.applyTranslations = function () {
+    applyTextTranslations(WeddingSite.state.language);
+
+    applyAccessibilityTranslations(
+      WeddingSite.state.language
+    );
   };
+
+
+  /* =======================================================
+     14. INITIALIZATION
+  ======================================================= */
+
+  function initializePartOne() {
+    initializeLanguageSystem();
+  }
+
+  if (document.readyState === "loading") {
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      initializePartOne,
+      { once: true }
+    );
+
+  } else {
+
+    initializePartOne();
+
+  }
+
+
+  /* =======================================================
+     15. EXPOSE WEBSITE SYSTEM
+  ======================================================= */
+
+  window.WeddingSite = WeddingSite;
+
+
+  /* =======================================================
+     END OF JAVASCRIPT PART 1
+     Next: Mobile Navigation & Countdown
+  ======================================================= */
+
 })();
 
-/* ---------------------------------------------------------
-   10. INITIALIZE CORE LANGUAGE SYSTEM
-   --------------------------------------------------------- */
-
-function initializeParachaCore() {
-  try {
-    ParachaWedding.initializeLanguage();
-
-    document.documentElement.classList.add("js-enabled");
-
-    console.info(
-      "[Paracha Wedding] Core language system initialized."
-    );
-  } catch (error) {
-    console.error(
-      "[Paracha Wedding] Core initialization failed:",
-      error
-    );
-  }
-}
-
-if (document.readyState === "loading") {
-  document.addEventListener(
-    "DOMContentLoaded",
-    initializeParachaCore,
-    { once: true }
-  );
-} else {
-  initializeParachaCore();
-}
-
-/* ================= END OF PART 1 OF 4 ================= */
-
 /* =========================================================
-   PART 2 OF 4 — NAVIGATION SYSTEM
-   Append this section immediately after Part 1.
-   ========================================================= */
+   PARACHA WEDDING WEBSITE
+   JAVASCRIPT PART 2 OF 4
+   Mobile Navigation & Live Countdown
+========================================================= */
 
-(function initializeNavigationSystem() {
+(() => {
   "use strict";
 
-  /* -------------------------------------------------------
-     1. NAVIGATION ELEMENTS
-     ------------------------------------------------------- */
+  const WeddingSite = window.WeddingSite;
 
-  const toggleButton = ParachaWedding.dom.getById(
-    "mobile-menu-toggle"
-  );
-
-  const navigation = ParachaWedding.dom.getById(
-    "main-navigation"
-  );
-
-  const navigationLinks = navigation
-    ? ParachaWedding.dom.getAll('a[href^="#"]', navigation)
-    : [];
-
-  const header =
-    ParachaWedding.dom.get(".site-header") ||
-    ParachaWedding.dom.get("header");
-
-  if (!navigation) {
-    console.warn(
-      "[Paracha Wedding] Navigation element #main-navigation was not found."
+  if (!WeddingSite) {
+    console.error(
+      "WeddingSite core is not initialized. Check JavaScript Part 1."
     );
     return;
   }
 
-  let isMenuOpen = false;
-  let scrollTicking = false;
 
-  /* -------------------------------------------------------
-     2. ACCESSIBILITY LABELS
-     ------------------------------------------------------- */
+  /* =======================================================
+     1. MOBILE NAVIGATION ELEMENTS
+  ======================================================= */
 
-  function updateToggleAccessibility() {
-    if (!toggleButton) return;
+  const menuToggle = document.getElementById(
+    "mobile-menu-toggle"
+  );
 
-    const language = ParachaWedding.currentLanguage;
+  const navigation = document.getElementById(
+    "main-navigation"
+  );
 
-    const labelKey = isMenuOpen
-      ? "button.close_menu"
-      : "button.open_menu";
 
-    const label = ParachaWedding.translate(
-      labelKey,
-      language
-    );
+  /* =======================================================
+     2. MENU ACCESSIBILITY
+  ======================================================= */
 
-    if (label) {
-      toggleButton.setAttribute("aria-label", label);
-    }
+  function updateMenuAccessibility(isOpen) {
 
-    toggleButton.setAttribute(
+    if (!menuToggle || !navigation) return;
+
+    menuToggle.setAttribute(
       "aria-expanded",
-      isMenuOpen ? "true" : "false"
+      String(isOpen)
     );
+
+    menuToggle.setAttribute(
+      "aria-label",
+      WeddingSite.getTranslation(
+        isOpen
+          ? "common.closeMenu"
+          : "common.openMenu"
+      )
+    );
+
+    navigation.setAttribute(
+      "aria-hidden",
+      String(!isOpen)
+    );
+
   }
 
-  /* -------------------------------------------------------
-     3. OPEN MOBILE NAVIGATION
-     ------------------------------------------------------- */
 
-  function openMenu() {
-    if (!toggleButton || isMenuOpen) return;
+  /* =======================================================
+     3. OPEN MOBILE MENU
+  ======================================================= */
 
-    isMenuOpen = true;
+  function openMobileMenu() {
+
+    if (!menuToggle || !navigation) return;
 
     navigation.classList.add("is-open");
-    toggleButton.classList.add("is-active");
+
+    menuToggle.classList.add("is-active");
 
     document.body.classList.add("menu-open");
 
-    updateToggleAccessibility();
+    WeddingSite.state.isMenuOpen = true;
 
-    document.dispatchEvent(
-      new CustomEvent("paracha:menuopen")
-    );
+    updateMenuAccessibility(true);
 
-    console.info(
-      "[Paracha Wedding] Mobile navigation opened."
-    );
   }
 
-  /* -------------------------------------------------------
-     4. CLOSE MOBILE NAVIGATION
-     ------------------------------------------------------- */
 
-  function closeMenu(options = {}) {
-    if (!isMenuOpen) return;
+  /* =======================================================
+     4. CLOSE MOBILE MENU
+  ======================================================= */
 
-    isMenuOpen = false;
+  function closeMobileMenu() {
+
+    if (!menuToggle || !navigation) return;
 
     navigation.classList.remove("is-open");
 
-    if (toggleButton) {
-      toggleButton.classList.remove("is-active");
-    }
+    menuToggle.classList.remove("is-active");
 
     document.body.classList.remove("menu-open");
 
-    updateToggleAccessibility();
+    WeddingSite.state.isMenuOpen = false;
 
-    if (options.returnFocus && toggleButton) {
-      toggleButton.focus();
-    }
+    updateMenuAccessibility(false);
 
-    document.dispatchEvent(
-      new CustomEvent("paracha:menuclose")
-    );
-
-    console.info(
-      "[Paracha Wedding] Mobile navigation closed."
-    );
   }
 
-  /* -------------------------------------------------------
-     5. TOGGLE BUTTON EVENT
-     ------------------------------------------------------- */
 
-  if (toggleButton) {
-    toggleButton.addEventListener("click", () => {
-      if (isMenuOpen) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
-    });
+  /* =======================================================
+     5. TOGGLE MOBILE MENU
+  ======================================================= */
+
+  function toggleMobileMenu() {
+
+    if (WeddingSite.state.isMenuOpen) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+
   }
 
-  /* -------------------------------------------------------
-     6. CLOSE MENU AFTER NAVIGATION
-     ------------------------------------------------------- */
 
-  navigationLinks.forEach((link) => {
-    link.addEventListener("click", (event) => {
-      const targetSelector = link.getAttribute("href");
+  /* =======================================================
+     6. MOBILE MENU EVENT LISTENERS
+  ======================================================= */
 
-      if (
-        !targetSelector ||
-        targetSelector === "#" ||
-        !targetSelector.startsWith("#")
-      ) {
-        return;
-      }
+  function initializeMobileNavigation() {
 
-      let targetSection;
-
-      try {
-        targetSection = document.querySelector(targetSelector);
-      } catch (error) {
-        console.warn(
-          "[Paracha Wedding] Invalid navigation target:",
-          targetSelector
-        );
-        return;
-      }
-
-      if (!targetSection) {
-        console.warn(
-          "[Paracha Wedding] Navigation target not found:",
-          targetSelector
-        );
-        return;
-      }
-
-      closeMenu();
-
-      /*
-       * Native anchor navigation is retained.
-       * CSS scroll-behavior and scroll-margin can
-       * control the visual scrolling behavior.
-       */
-    });
-  });
-
-  /* -------------------------------------------------------
-     7. CLOSE MENU WHEN CLICKING OUTSIDE
-     ------------------------------------------------------- */
-
-  document.addEventListener("click", (event) => {
-    if (!isMenuOpen) return;
-
-    const clickedInsideNavigation =
-      navigation.contains(event.target);
-
-    const clickedToggle =
-      toggleButton &&
-      toggleButton.contains(event.target);
-
-    if (!clickedInsideNavigation && !clickedToggle) {
-      closeMenu();
-    }
-  });
-
-  /* -------------------------------------------------------
-     8. KEYBOARD ACCESSIBILITY
-     ------------------------------------------------------- */
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && isMenuOpen) {
-      closeMenu({
-        returnFocus: true
-      });
-    }
-  });
-
-  /* -------------------------------------------------------
-     9. CLOSE MENU WHEN RETURNING TO DESKTOP
-     ------------------------------------------------------- */
-
-  const desktopMediaQuery = window.matchMedia(
-    "(min-width: 769px)"
-  );
-
-  function handleViewportChange(event) {
-    if (event.matches) {
-      closeMenu();
-    }
-  }
-
-  if (typeof desktopMediaQuery.addEventListener === "function") {
-    desktopMediaQuery.addEventListener(
-      "change",
-      handleViewportChange
-    );
-  } else if (typeof desktopMediaQuery.addListener === "function") {
-    desktopMediaQuery.addListener(handleViewportChange);
-  }
-
-  /* -------------------------------------------------------
-     10. NAVIGATION SECTIONS
-     ------------------------------------------------------- */
-
-  const navigationSections = navigationLinks
-    .map((link) => {
-      const selector = link.getAttribute("href");
-
-      if (!selector || selector === "#") {
-        return null;
-      }
-
-      const section = document.querySelector(selector);
-
-      if (!section) {
-        return null;
-      }
-
-      return {
-        link,
-        section,
-        id: section.id
-      };
-    })
-    .filter(Boolean);
-
-  /* -------------------------------------------------------
-     11. UPDATE ACTIVE NAVIGATION LINK
-     ------------------------------------------------------- */
-
-  function setActiveNavigation(sectionId) {
-    navigationSections.forEach((item) => {
-      const isActive = item.id === sectionId;
-
-      item.link.classList.toggle(
-        "is-active",
-        isActive
+    if (!menuToggle || !navigation) {
+      console.warn(
+        "Mobile navigation elements were not found."
       );
-
-      if (isActive) {
-        item.link.setAttribute(
-          "aria-current",
-          "location"
-        );
-      } else {
-        item.link.removeAttribute("aria-current");
-      }
-    });
-  }
-
-  /* -------------------------------------------------------
-     12. INTERSECTION OBSERVER FOR ACTIVE SECTION
-     ------------------------------------------------------- */
-
-  function initializeActiveSectionObserver() {
-    if (!navigationSections.length) return;
-
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          const visibleSections = entries
-            .filter((entry) => entry.isIntersecting)
-            .sort(
-              (a, b) =>
-                b.intersectionRatio - a.intersectionRatio
-            );
-
-          if (visibleSections.length > 0) {
-            setActiveNavigation(
-              visibleSections[0].target.id
-            );
-          }
-        },
-        {
-          root: null,
-          rootMargin: "-20% 0px -60% 0px",
-          threshold: [0, 0.1, 0.25, 0.5, 0.75, 1]
-        }
-      );
-
-      navigationSections.forEach((item) => {
-        observer.observe(item.section);
-      });
-
       return;
     }
 
-    initializeScrollBasedActiveSection();
-  }
+    menuToggle.setAttribute(
+      "aria-controls",
+      "main-navigation"
+    );
 
-  /* -------------------------------------------------------
-     13. FALLBACK ACTIVE SECTION DETECTION
-     ------------------------------------------------------- */
+    menuToggle.setAttribute(
+      "aria-haspopup",
+      "true"
+    );
 
-  function updateActiveSectionOnScroll() {
-    const headerHeight = header
-      ? header.getBoundingClientRect().height
-      : 0;
+    menuToggle.addEventListener(
+      "click",
+      toggleMobileMenu
+    );
 
-    const activationPoint =
-      window.scrollY + headerHeight + 120;
 
-    let currentSection = navigationSections[0];
+    /* Close after clicking a navigation link */
 
-    navigationSections.forEach((item) => {
-      const sectionTop =
-        item.section.getBoundingClientRect().top +
-        window.scrollY;
+    const navigationLinks = navigation.querySelectorAll(
+      "a"
+    );
 
-      if (sectionTop <= activationPoint) {
-        currentSection = item;
-      }
+    navigationLinks.forEach((link) => {
+
+      link.addEventListener("click", () => {
+        closeMobileMenu();
+      });
+
     });
 
-    if (currentSection) {
-      setActiveNavigation(currentSection.id);
-    }
-  }
 
-  function initializeScrollBasedActiveSection() {
-    window.addEventListener(
-      "scroll",
-      () => {
-        if (scrollTicking) return;
+    /* Close when pressing Escape */
 
-        scrollTicking = true;
+    document.addEventListener("keydown", (event) => {
 
-        window.requestAnimationFrame(() => {
-          updateActiveSectionOnScroll();
-          scrollTicking = false;
-        });
-      },
-      { passive: true }
-    );
+      if (
+        event.key === "Escape" &&
+        WeddingSite.state.isMenuOpen
+      ) {
+        closeMobileMenu();
 
-    window.addEventListener(
-      "resize",
-      updateActiveSectionOnScroll,
-      { passive: true }
-    );
-
-    updateActiveSectionOnScroll();
-  }
-
-  /* -------------------------------------------------------
-     14. INITIALIZE NAVIGATION
-     ------------------------------------------------------- */
-
-  updateToggleAccessibility();
-
-  initializeActiveSectionObserver();
-
-  /*
-   * Update the menu's accessible label whenever
-   * the website language changes.
-   */
-
-  document.addEventListener(
-    "paracha:languagechange",
-    updateToggleAccessibility
-  );
-
-  /*
-   * Ensure the initial active navigation state
-   * is correct after the page has loaded.
-   */
-
-  window.addEventListener(
-    "load",
-    () => {
-      if (!("IntersectionObserver" in window)) {
-        updateActiveSectionOnScroll();
+        menuToggle.focus();
       }
-    },
-    { once: true }
-  );
 
-  console.info(
-    "[Paracha Wedding] Navigation system initialized."
-  );
-})();
-
-/* ================= END OF PART 2 OF 4 ================= */
-
-/* =========================================================
-   PART 3 OF 4 — WEDDING EVENT COUNTDOWN SYSTEM
-   Append immediately after Part 2.
-   ========================================================= */
-
-(function initializeCountdownSystem() {
-  "use strict";
-
-  /* -------------------------------------------------------
-     1. EVENT CONFIGURATION
-     ------------------------------------------------------- */
-
-  const EVENTS = Object.freeze([
-    {
-      id: "nikah",
-      date: "2027-03-06"
-    },
-    {
-      id: "baraat",
-      date: "2027-04-03"
-    },
-    {
-      id: "walima",
-      date: "2027-04-04"
-    }
-  ]);
-
-  const TIMEZONE = ParachaWedding.config.timezone;
-
-  const UPDATE_INTERVAL = 1000;
-
-  let countdownInterval = null;
-
-  /* -------------------------------------------------------
-     2. COUNTDOWN STATUS TRANSLATIONS
-     ------------------------------------------------------- */
-
-  Object.assign(ParachaWedding.translations.en, {
-    "event.countdown_today": "Today is the event day.",
-    "event.countdown_passed": "This event date has passed."
-  });
-
-  Object.assign(ParachaWedding.translations.ur, {
-    "event.countdown_today": "آج تقریب کا دن ہے۔",
-    "event.countdown_passed": "اس تقریب کی تاریخ گزر چکی ہے۔"
-  });
-
-  /* -------------------------------------------------------
-     3. TIMEZONE DATE/TIME HELPERS
-     ------------------------------------------------------- */
-
-  function getZonedDateParts(date, timezone) {
-    const formatter = new Intl.DateTimeFormat("en-GB", {
-      timeZone: timezone,
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hourCycle: "h23"
     });
 
-    const parts = formatter.formatToParts(date);
 
-    const result = {};
+    /* Close when clicking outside the menu */
 
-    parts.forEach((part) => {
-      if (part.type !== "literal") {
-        result[part.type] = Number(part.value);
+    document.addEventListener("click", (event) => {
+
+      if (!WeddingSite.state.isMenuOpen) return;
+
+      const clickedInsideMenu =
+        navigation.contains(event.target);
+
+      const clickedToggle =
+        menuToggle.contains(event.target);
+
+      if (!clickedInsideMenu && !clickedToggle) {
+        closeMobileMenu();
       }
+
     });
 
-    return result;
+
+    /* Close when returning to desktop layout */
+
+    window.addEventListener("resize", () => {
+
+      if (window.innerWidth > 900) {
+        closeMobileMenu();
+      }
+
+    });
+
+
+    /* Initial accessibility state */
+
+    closeMobileMenu();
+
   }
 
-  /*
-   * Calculate the UTC offset for a timezone at a
-   * particular instant. This avoids relying on the
-   * visitor's computer timezone.
-   */
 
-  function getTimezoneOffset(date, timezone) {
-    const parts = getZonedDateParts(date, timezone);
+  /* =======================================================
+     7. COUNTDOWN CONFIGURATION
+  ======================================================= */
 
-    const zonedTimeAsUTC = Date.UTC(
-      parts.year,
-      parts.month - 1,
-      parts.day,
-      parts.hour,
-      parts.minute,
-      parts.second
-    );
+  const COUNTDOWN_INTERVAL = 1000;
 
-    const instantWithoutMilliseconds =
-      Math.floor(date.getTime() / 1000) * 1000;
+  const PAKISTAN_TIME_OFFSET = "+05:00";
 
-    return zonedTimeAsUTC - instantWithoutMilliseconds;
-  }
 
-  /* -------------------------------------------------------
-     4. CONVERT LOCAL EVENT MIDNIGHT TO UTC
-     ------------------------------------------------------- */
+  /* =======================================================
+     8. CREATE EVENT TARGET DATE
+  ======================================================= */
 
-  function getEventTargetTimestamp(dateString) {
-    const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(
-      dateString
-    );
-
-    if (!match) {
-      throw new Error(
-        `Invalid event date: ${dateString}`
-      );
-    }
-
-    const year = Number(match[1]);
-    const month = Number(match[2]);
-    const day = Number(match[3]);
-
-    const requestedDate = new Date(
-      Date.UTC(year, month - 1, day)
-    );
-
-    /*
-     * Validate the calendar date. For example,
-     * 2027-02-31 must not be accepted.
-     */
+  function getEventTargetDate(dateString) {
 
     if (
-      requestedDate.getUTCFullYear() !== year ||
-      requestedDate.getUTCMonth() !== month - 1 ||
-      requestedDate.getUTCDate() !== day
+      typeof dateString !== "string" ||
+      !/^\d{4}-\d{2}-\d{2}$/.test(dateString)
     ) {
-      throw new Error(
-        `Invalid calendar date: ${dateString}`
-      );
+      return null;
     }
 
     /*
-     * Start with the requested local midnight,
-     * then convert it using the timezone offset.
-     * Recalculate once to handle offset changes.
-     */
+      Event date is interpreted as midnight in Pakistan.
 
-    const approximateUTC = Date.UTC(
-      year,
-      month - 1,
-      day,
-      0,
-      0,
-      0
+      Example:
+      2027-03-06T00:00:00+05:00
+    */
+
+    const targetDate = new Date(
+      `${dateString}T00:00:00${PAKISTAN_TIME_OFFSET}`
     );
 
-    let targetTimestamp =
-      approximateUTC -
-      getTimezoneOffset(
-        new Date(approximateUTC),
-        TIMEZONE
-      );
-
-    targetTimestamp =
-      approximateUTC -
-      getTimezoneOffset(
-        new Date(targetTimestamp),
-        TIMEZONE
-      );
-
-    return targetTimestamp;
-  }
-
-  /* -------------------------------------------------------
-     5. GET CURRENT EVENT-DATE STATUS
-     ------------------------------------------------------- */
-
-  function getEventStatus(now, targetTimestamp) {
-    const difference = targetTimestamp - now;
-
-    if (difference > 0) {
-      return "upcoming";
+    if (Number.isNaN(targetDate.getTime())) {
+      return null;
     }
 
-    const currentParts = getZonedDateParts(
-      new Date(now),
-      TIMEZONE
-    );
+    /*
+      Validate that JavaScript did not normalize
+      an invalid calendar date.
+    */
 
-    const today =
-      `${currentParts.year}-` +
-      `${String(currentParts.month).padStart(2, "0")}-` +
-      `${String(currentParts.day).padStart(2, "0")}`;
+    const actualDate = [
+      targetDate.getFullYear(),
+      String(targetDate.getMonth() + 1).padStart(2, "0"),
+      String(targetDate.getDate()).padStart(2, "0")
+    ].join("-");
 
-    if (difference <= 0) {
-      const targetDate = new Date(targetTimestamp);
-
-      const targetParts = getZonedDateParts(
-        targetDate,
-        TIMEZONE
-      );
-
-      const eventDate =
-        `${targetParts.year}-` +
-        `${String(targetParts.month).padStart(2, "0")}-` +
-        `${String(targetParts.day).padStart(2, "0")}`;
-
-      if (today === eventDate) {
-        return "today";
-      }
+    if (actualDate !== dateString) {
+      return null;
     }
 
-    return "passed";
+    return targetDate;
+
   }
 
-  /* -------------------------------------------------------
-     6. FORMAT COUNTDOWN NUMBERS
-     ------------------------------------------------------- */
+
+  /* =======================================================
+     9. FORMAT COUNTDOWN NUMBERS
+  ======================================================= */
 
   function formatCountdownNumber(value) {
-    const language = ParachaWedding.currentLanguage;
 
-    const locale =
-      language === "ur" ? "ur-PK" : "en-US";
+    return String(Math.max(0, value)).padStart(2, "0");
 
-    return new Intl.NumberFormat(locale, {
-      maximumFractionDigits: 0,
-      useGrouping: false
-    }).format(value);
   }
 
-  /* -------------------------------------------------------
-     7. UPDATE INDIVIDUAL COUNTDOWN DISPLAY
-     ------------------------------------------------------- */
 
-  function updateCountdownDisplay(
-    container,
-    remainingMilliseconds
-  ) {
-    const totalSeconds = Math.max(
-      0,
-      Math.floor(remainingMilliseconds / 1000)
+  /* =======================================================
+     10. UPDATE ONE COUNTDOWN
+  ======================================================= */
+
+  function updateCountdown(countdownElement) {
+
+    if (!countdownElement) return;
+
+    const dateString =
+      countdownElement.getAttribute(
+        "data-countdown-date"
+      );
+
+    const targetDate = getEventTargetDate(dateString);
+
+    const statusElement =
+      countdownElement.querySelector(
+        "[data-countdown-status]"
+      );
+
+    if (!targetDate) {
+
+      if (statusElement) {
+        statusElement.textContent =
+          WeddingSite.state.language === "ur"
+            ? "تاریخ دستیاب نہیں"
+            : "Date unavailable";
+      }
+
+      return;
+
+    }
+
+
+    const now = Date.now();
+
+    const remainingMilliseconds =
+      targetDate.getTime() - now;
+
+
+    /* -------------------------------------------------------
+       Event date has arrived
+    ------------------------------------------------------- */
+
+    if (remainingMilliseconds <= 0) {
+
+      updateCountdownValues(countdownElement, {
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0
+      });
+
+      if (statusElement) {
+        statusElement.textContent =
+          WeddingSite.getTranslation(
+            "countdown.dateReached"
+          );
+      }
+
+      countdownElement.setAttribute(
+        "data-countdown-state",
+        "reached"
+      );
+
+      return;
+
+    }
+
+
+    /* -------------------------------------------------------
+       Calculate remaining time
+    ------------------------------------------------------- */
+
+    const totalSeconds = Math.floor(
+      remainingMilliseconds / 1000
     );
 
     const days = Math.floor(
@@ -1121,569 +892,1231 @@ if (document.readyState === "loading") {
 
     const seconds = totalSeconds % 60;
 
-    const values = {
+
+    updateCountdownValues(countdownElement, {
       days,
       hours,
       minutes,
       seconds
-    };
-
-    Object.entries(values).forEach(([unit, value]) => {
-      const element = container.querySelector(
-        `[data-countdown-value="${unit}"]`
-      );
-
-      if (element) {
-        element.textContent =
-          formatCountdownNumber(value);
-      }
     });
-  }
 
-  /* -------------------------------------------------------
-     8. UPDATE EVENT STATUS MESSAGE
-     ------------------------------------------------------- */
 
-  function updateCountdownStatus(
-    container,
-    status
-  ) {
-    const statusElement = container.querySelector(
-      "[data-countdown-status]"
-    );
-
-    if (!statusElement) return;
-
-    let translationKey;
-
-    if (status === "today") {
-      translationKey = "event.countdown_today";
-    } else if (status === "passed") {
-      translationKey = "event.countdown_passed";
-    } else {
-      /*
-       * Do not display a completion message
-       * while the event date is still upcoming.
-       */
-
-      statusElement.textContent = "";
-      return;
-    }
-
-    const message = ParachaWedding.translate(
-      translationKey
-    );
-
-    statusElement.textContent = message || "";
-  }
-
-  /* -------------------------------------------------------
-     9. UPDATE ONE EVENT
-     ------------------------------------------------------- */
-
-  function updateEventCountdown(eventConfig, now) {
-    const container = document.querySelector(
-      `[data-countdown="${eventConfig.id}"]`
-    );
-
-    if (!container) {
-      console.warn(
-        `[Paracha Wedding] Countdown container not found: ${eventConfig.id}`
-      );
-      return;
-    }
-
-    try {
-      const targetTimestamp =
-        getEventTargetTimestamp(eventConfig.date);
-
-      const remainingMilliseconds =
-        targetTimestamp - now;
-
-      const status = getEventStatus(
-        now,
-        targetTimestamp
-      );
-
-      if (status === "upcoming") {
-        updateCountdownDisplay(
-          container,
-          remainingMilliseconds
+    if (statusElement) {
+      statusElement.textContent =
+        WeddingSite.getTranslation(
+          "countdown.awaiting"
         );
-      } else {
-        /*
-         * Once the event date arrives, the countdown
-         * reaches zero. No unknown event time is assumed.
-         */
-
-        updateCountdownDisplay(container, 0);
-      }
-
-      updateCountdownStatus(container, status);
-
-      container.setAttribute(
-        "data-event-status",
-        status
-      );
-    } catch (error) {
-      console.error(
-        `[Paracha Wedding] Countdown error for ${eventConfig.id}:`,
-        error
-      );
-
-      container.setAttribute(
-        "data-event-status",
-        "error"
-      );
-    }
-  }
-
-  /* -------------------------------------------------------
-     10. UPDATE ALL EVENT COUNTDOWNS
-     ------------------------------------------------------- */
-
-  function updateAllCountdowns() {
-    const now = Date.now();
-
-    EVENTS.forEach((eventConfig) => {
-      updateEventCountdown(eventConfig, now);
-    });
-  }
-
-  /* -------------------------------------------------------
-     11. START COUNTDOWN TIMER
-     ------------------------------------------------------- */
-
-  function startCountdownTimer() {
-    if (countdownInterval !== null) {
-      window.clearInterval(countdownInterval);
     }
 
-    updateAllCountdowns();
-
-    countdownInterval = window.setInterval(
-      updateAllCountdowns,
-      UPDATE_INTERVAL
+    countdownElement.setAttribute(
+      "data-countdown-state",
+      "active"
     );
+
   }
 
-  /* -------------------------------------------------------
-     12. STOP COUNTDOWN TIMER
-     ------------------------------------------------------- */
 
-  function stopCountdownTimer() {
-    if (countdownInterval !== null) {
-      window.clearInterval(countdownInterval);
-      countdownInterval = null;
-    }
-  }
+  /* =======================================================
+     11. UPDATE COUNTDOWN VALUES
+  ======================================================= */
 
-  /* -------------------------------------------------------
-     13. PAGE VISIBILITY HANDLING
-     ------------------------------------------------------- */
+  function updateCountdownValues(
+    countdownElement,
+    values
+  ) {
 
-  document.addEventListener(
-    "visibilitychange",
-    () => {
-      if (document.hidden) {
-        stopCountdownTimer();
-      } else {
-        startCountdownTimer();
+    Object.entries(values).forEach(
+      ([unit, value]) => {
+
+        const valueElement =
+          countdownElement.querySelector(
+            `[data-countdown-value="${unit}"]`
+          );
+
+        if (!valueElement) return;
+
+        const formattedValue =
+          formatCountdownNumber(value);
+
+        if (
+          valueElement.textContent !== formattedValue
+        ) {
+          valueElement.textContent = formattedValue;
+        }
+
       }
+    );
+
+  }
+
+
+  /* =======================================================
+     12. INITIALIZE ALL COUNTDOWNS
+  ======================================================= */
+
+  function initializeCountdowns() {
+
+    const countdownElements =
+      document.querySelectorAll("[data-countdown]");
+
+    if (!countdownElements.length) {
+      console.warn(
+        "No countdown elements were found."
+      );
+      return;
     }
-  );
 
-  /* -------------------------------------------------------
-     14. PAGE LIFECYCLE HANDLING
-     ------------------------------------------------------- */
 
-  window.addEventListener("pagehide", () => {
-    stopCountdownTimer();
-  });
+    /* Clear previous intervals if initialized again */
 
-  window.addEventListener("pageshow", () => {
-    if (!document.hidden) {
-      startCountdownTimer();
-    }
-  });
+    WeddingSite.state.countdownIntervals.forEach(
+      (intervalId) => {
+        clearInterval(intervalId);
+      }
+    );
 
-  /* -------------------------------------------------------
-     15. LANGUAGE CHANGE HANDLING
-     ------------------------------------------------------- */
+    WeddingSite.state.countdownIntervals = [];
+
+
+    countdownElements.forEach((countdownElement) => {
+
+      /* Show correct values immediately */
+
+      updateCountdown(countdownElement);
+
+
+      /* Update every second */
+
+      const intervalId = setInterval(() => {
+
+        updateCountdown(countdownElement);
+
+      }, COUNTDOWN_INTERVAL);
+
+
+      WeddingSite.state.countdownIntervals.push(
+        intervalId
+      );
+
+    });
+
+  }
+
+
+  /* =======================================================
+     13. PUBLIC METHODS
+  ======================================================= */
+
+  WeddingSite.navigation = {
+    open: openMobileMenu,
+    close: closeMobileMenu,
+    toggle: toggleMobileMenu
+  };
+
+
+  WeddingSite.countdown = {
+    initialize: initializeCountdowns,
+    update: updateCountdown
+  };
+
+
+  /* =======================================================
+     14. LANGUAGE CHANGE SUPPORT
+  ======================================================= */
 
   document.addEventListener(
-    "paracha:languagechange",
-    updateAllCountdowns
+    "wedding:languageChanged",
+    () => {
+
+      /*
+        Refresh translated menu accessibility labels
+        and countdown status messages.
+      */
+
+      updateMenuAccessibility(
+        WeddingSite.state.isMenuOpen
+      );
+
+      document.querySelectorAll(
+        "[data-countdown]"
+      ).forEach((countdownElement) => {
+
+        updateCountdown(countdownElement);
+
+      });
+
+    }
   );
 
-  /* -------------------------------------------------------
-     16. INITIALIZE COUNTDOWNS
-     ------------------------------------------------------- */
 
-  startCountdownTimer();
+  /* =======================================================
+     15. INITIALIZATION
+  ======================================================= */
 
-  console.info(
-    "[Paracha Wedding] Event countdown system initialized."
-  );
+  function initializePartTwo() {
+
+    initializeMobileNavigation();
+
+    initializeCountdowns();
+
+  }
+
+
+  if (document.readyState === "loading") {
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      initializePartTwo,
+      { once: true }
+    );
+
+  } else {
+
+    initializePartTwo();
+
+  }
+
+
+  /* =======================================================
+     END OF JAVASCRIPT PART 2
+     Next: Scroll Animations & Back to Top
+  ======================================================= */
 
 })();
 
-/* ================= END OF PART 3 OF 4 ================= */
-
 /* =========================================================
-   PARACHA WEDDING WEBSITE BY ASP
-   JAVASCRIPT — PART 4 OF 4
+   PARACHA WEDDING WEBSITE
+   JAVASCRIPT PART 3 OF 4
+   Scroll Reveal, Back to Top & Scroll Effects
+========================================================= */
 
-   Systems:
-   1. Scroll Reveal
-   2. Reduced Motion Support
-   3. Back To Top
-   4. Accessibility Announcements
-   5. Global Error Handling
-   6. Final Initialization
+(() => {
+  "use strict";
 
-   ========================================================= */
+  const WeddingSite = window.WeddingSite;
 
-(function initializeScrollRevealSystem() {
-    "use strict";
+  if (!WeddingSite) {
+    console.error(
+      "WeddingSite core is not initialized. Check JavaScript Part 1."
+    );
+    return;
+  }
 
-    if (window.__parachaScrollRevealInitialized) {
-        return;
-    }
 
-    window.__parachaScrollRevealInitialized = true;
+  /* =======================================================
+     1. ELEMENT REFERENCES
+  ======================================================= */
 
-    const revealElements = document.querySelectorAll("[data-reveal]");
+  const backToTopButton = document.getElementById(
+    "back-to-top"
+  );
 
-    if (!revealElements.length) {
-        return;
-    }
+  const siteHeader = document.getElementById(
+    "site-header"
+  );
 
-    const reducedMotionQuery = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
+
+  /* =======================================================
+     2. REDUCED MOTION PREFERENCE
+  ======================================================= */
+
+  const reducedMotionQuery = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  );
+
+  function prefersReducedMotion() {
+    return reducedMotionQuery.matches;
+  }
+
+
+  /* =======================================================
+     3. SCROLL REVEAL SELECTORS
+  ======================================================= */
+
+  const revealSelectors = [
+    ".section-heading",
+    ".hero-content",
+    ".family-card",
+    ".event-card",
+    ".verse-card",
+    ".hadith-card",
+    ".family-blessing-card",
+    ".dua-card",
+    ".blessings-closing",
+    ".footer-main"
+  ];
+
+
+  /* =======================================================
+     4. COLLECT REVEAL ELEMENTS
+  ======================================================= */
+
+  function getRevealElements() {
+
+    const selector = revealSelectors.join(",");
+
+    return Array.from(
+      document.querySelectorAll(selector)
     );
 
-    function revealAllElements() {
-        revealElements.forEach(function (element) {
-            element.classList.add("is-visible");
-            element.setAttribute("data-revealed", "true");
-        });
+  }
+
+
+  /* =======================================================
+     5. ASSIGN REVEAL CLASSES
+  ======================================================= */
+
+  function prepareRevealElements(elements) {
+
+    elements.forEach((element, index) => {
+
+      if (element.classList.contains("is-visible")) {
+        return;
+      }
+
+      if (element.classList.contains("reveal")) {
+        return;
+      }
+
+      if (
+        element.classList.contains("reveal-up") ||
+        element.classList.contains("reveal-left") ||
+        element.classList.contains("reveal-right") ||
+        element.classList.contains("reveal-scale")
+      ) {
+        return;
+      }
+
+      element.classList.add("reveal-up");
+
+      /*
+        Add small stagger delays to groups of cards.
+      */
+
+      const parent = element.parentElement;
+
+      if (!parent) return;
+
+      const siblings = Array.from(parent.children);
+
+      const siblingIndex = siblings.indexOf(element);
+
+      if (siblingIndex >= 0) {
+
+        const delayClass =
+          `reveal-delay-${(siblingIndex % 5) + 1}`;
+
+        element.classList.add(delayClass);
+
+      }
+
+    });
+
+  }
+
+
+  /* =======================================================
+     6. REVEAL ELEMENT IMMEDIATELY
+  ======================================================= */
+
+  function revealImmediately(element) {
+
+    element.classList.add("is-visible");
+
+    if (WeddingSite.state.revealObserver) {
+      WeddingSite.state.revealObserver.unobserve(element);
     }
 
-    function revealElement(element) {
-        if (!element || element.getAttribute("data-revealed") === "true") {
-            return;
-        }
+  }
+
+
+  /* =======================================================
+     7. INTERSECTION OBSERVER
+  ======================================================= */
+
+  function initializeRevealObserver() {
+
+    const elements = getRevealElements();
+
+    if (!elements.length) return;
+
+    /*
+      Without IntersectionObserver, keep all content visible.
+    */
+
+    if (!("IntersectionObserver" in window)) {
+
+      elements.forEach((element) => {
+        element.classList.add("is-visible");
+      });
+
+      return;
+
+    }
+
+
+    /*
+      Reduced motion means no scroll animations.
+    */
+
+    if (prefersReducedMotion()) {
+
+      elements.forEach((element) => {
+        element.classList.add("is-visible");
+      });
+
+      return;
+
+    }
+
+
+    prepareRevealElements(elements);
+
+
+    const observer = new IntersectionObserver(
+      (entries, currentObserver) => {
+
+        entries.forEach((entry) => {
+
+          if (!entry.isIntersecting) return;
+
+          entry.target.classList.add("is-visible");
+
+          currentObserver.unobserve(entry.target);
+
+        });
+
+      },
+      {
+        root: null,
+
+        rootMargin: "0px 0px -55px 0px",
+
+        threshold: 0.08
+      }
+    );
+
+
+    WeddingSite.state.revealObserver = observer;
+
+
+    /*
+      Only activate hidden reveal styles after
+      observer initialization has succeeded.
+    */
+
+    document.body.classList.add("reveal-ready");
+
+
+    elements.forEach((element) => {
+
+      /*
+        Elements already inside the visible viewport
+        will be observed and revealed normally.
+      */
+
+      observer.observe(element);
+
+    });
+
+  }
+
+
+  /* =======================================================
+     8. REVEAL FALLBACK FOR DYNAMIC CONTENT
+  ======================================================= */
+
+  function refreshRevealElements() {
+
+    const observer = WeddingSite.state.revealObserver;
+
+    if (!observer) return;
+
+    const elements = getRevealElements();
+
+    elements.forEach((element) => {
+
+      if (element.classList.contains("is-visible")) {
+        return;
+      }
+
+      if (
+        element.classList.contains("reveal") ||
+        element.classList.contains("reveal-up") ||
+        element.classList.contains("reveal-left") ||
+        element.classList.contains("reveal-right") ||
+        element.classList.contains("reveal-scale")
+      ) {
+        observer.observe(element);
+      }
+
+    });
+
+  }
+
+
+  /* =======================================================
+     9. BACK TO TOP VISIBILITY
+  ======================================================= */
+
+  function updateBackToTopVisibility() {
+
+    if (!backToTopButton) return;
+
+    const scrollPosition =
+      window.scrollY ||
+      document.documentElement.scrollTop ||
+      0;
+
+    const shouldShow = scrollPosition > 450;
+
+    backToTopButton.classList.toggle(
+      "is-visible",
+      shouldShow
+    );
+
+    backToTopButton.setAttribute(
+      "aria-hidden",
+      String(!shouldShow)
+    );
+
+    backToTopButton.tabIndex = shouldShow ? 0 : -1;
+
+  }
+
+
+  /* =======================================================
+     10. HEADER SCROLL STATE
+  ======================================================= */
+
+  function updateHeaderScrollState() {
+
+    if (!siteHeader) return;
+
+    const scrollPosition =
+      window.scrollY ||
+      document.documentElement.scrollTop ||
+      0;
+
+    siteHeader.classList.toggle(
+      "is-scrolled",
+      scrollPosition > 35
+    );
+
+  }
+
+
+  /* =======================================================
+     11. CENTRAL SCROLL UPDATE
+  ======================================================= */
+
+  let scrollUpdateScheduled = false;
+
+  function handleScroll() {
+
+    if (scrollUpdateScheduled) return;
+
+    scrollUpdateScheduled = true;
+
+    window.requestAnimationFrame(() => {
+
+      updateBackToTopVisibility();
+
+      updateHeaderScrollState();
+
+      scrollUpdateScheduled = false;
+
+    });
+
+  }
+
+
+  /* =======================================================
+     12. BACK TO TOP ACTION
+  ======================================================= */
+
+  function scrollToTop() {
+
+    const behavior = prefersReducedMotion()
+      ? "auto"
+      : "smooth";
+
+    window.scrollTo({
+      top: 0,
+      behavior: behavior
+    });
+
+  }
+
+
+  /* =======================================================
+     13. INITIALIZE BACK TO TOP
+  ======================================================= */
+
+  function initializeBackToTop() {
+
+    if (!backToTopButton) {
+      console.warn(
+        "Back to top button was not found."
+      );
+      return;
+    }
+
+    backToTopButton.addEventListener(
+      "click",
+      scrollToTop
+    );
+
+    updateBackToTopVisibility();
+
+  }
+
+
+  /* =======================================================
+     14. INITIALIZE SCROLL LISTENERS
+  ======================================================= */
+
+  function initializeScrollListeners() {
+
+    window.addEventListener(
+      "scroll",
+      handleScroll,
+      { passive: true }
+    );
+
+    window.addEventListener(
+      "resize",
+      handleScroll,
+      { passive: true }
+    );
+
+    updateHeaderScrollState();
+
+  }
+
+
+  /* =======================================================
+     15. HANDLE MOTION PREFERENCE CHANGES
+  ======================================================= */
+
+  function handleMotionPreferenceChange() {
+
+    if (prefersReducedMotion()) {
+
+      document.body.classList.remove("reveal-ready");
+
+      const elements = getRevealElements();
+
+      elements.forEach((element) => {
 
         element.classList.add("is-visible");
-        element.setAttribute("data-revealed", "true");
+
+      });
+
+      if (WeddingSite.state.revealObserver) {
+
+        WeddingSite.state.revealObserver.disconnect();
+
+        WeddingSite.state.revealObserver = null;
+
+      }
+
+    } else {
+
+      /*
+        Reinitialize animations if the user
+        changes the preference while the page is open.
+      */
+
+      document.body.classList.remove("reveal-ready");
+
+      const elements = getRevealElements();
+
+      elements.forEach((element) => {
+        element.classList.remove("is-visible");
+      });
+
+      initializeRevealObserver();
+
     }
 
-    function initializeRevealObserver() {
-        if (reducedMotionQuery.matches) {
-            revealAllElements();
-            return;
-        }
+  }
 
-        if (!("IntersectionObserver" in window)) {
-            revealAllElements();
-            return;
-        }
 
-        const observer = new IntersectionObserver(
-            function (entries, currentObserver) {
-                entries.forEach(function (entry) {
-                    if (!entry.isIntersecting) {
-                        return;
-                    }
+  /* =======================================================
+     16. INITIALIZE MOTION PREFERENCE LISTENER
+  ======================================================= */
 
-                    revealElement(entry.target);
-                    currentObserver.unobserve(entry.target);
-                });
-            },
-            {
-                root: null,
-                rootMargin: "0px 0px -60px 0px",
-                threshold: 0.08
-            }
-        );
+  function initializeMotionPreferenceListener() {
 
-        revealElements.forEach(function (element) {
-            if (element.getAttribute("data-revealed") === "true") {
-                return;
-            }
+    if (typeof reducedMotionQuery.addEventListener === "function") {
 
-            observer.observe(element);
-        });
+      reducedMotionQuery.addEventListener(
+        "change",
+        handleMotionPreferenceChange
+      );
+
+    } else if (
+      typeof reducedMotionQuery.addListener === "function"
+    ) {
+
+      reducedMotionQuery.addListener(
+        handleMotionPreferenceChange
+      );
+
     }
 
-    function handleMotionPreferenceChange(event) {
-        if (event.matches) {
-            revealAllElements();
-        }
-    }
+  }
+
+
+  /* =======================================================
+     17. PUBLIC METHODS
+  ======================================================= */
+
+  WeddingSite.scroll = {
+    toTop: scrollToTop,
+
+    refreshReveal: refreshRevealElements,
+
+    update: handleScroll
+  };
+
+
+  /* =======================================================
+     18. INITIALIZATION
+  ======================================================= */
+
+  function initializePartThree() {
 
     initializeRevealObserver();
 
-    if (typeof reducedMotionQuery.addEventListener === "function") {
-        reducedMotionQuery.addEventListener(
-            "change",
-            handleMotionPreferenceChange
-        );
-    } else if (typeof reducedMotionQuery.addListener === "function") {
-        reducedMotionQuery.addListener(handleMotionPreferenceChange);
-    }
+    initializeBackToTop();
 
-})();
+    initializeScrollListeners();
+
+    initializeMotionPreferenceListener();
+
+  }
 
 
-/* =========================================================
-   BACK TO TOP SYSTEM
-   ========================================================= */
-
-(function initializeBackToTopSystem() {
-    "use strict";
-
-    if (window.__parachaBackToTopInitialized) {
-        return;
-    }
-
-    window.__parachaBackToTopInitialized = true;
-
-    const backToTopButton = document.getElementById("back-to-top");
-
-    if (!backToTopButton) {
-        return;
-    }
-
-    const reducedMotionQuery = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-    );
-
-    const visibilityThreshold = 450;
-    let ticking = false;
-
-    function updateButtonVisibility() {
-        const shouldShow = window.scrollY > visibilityThreshold;
-
-        backToTopButton.classList.toggle("is-visible", shouldShow);
-        backToTopButton.setAttribute(
-            "aria-hidden",
-            shouldShow ? "false" : "true"
-        );
-
-        backToTopButton.tabIndex = shouldShow ? 0 : -1;
-
-        ticking = false;
-    }
-
-    function requestVisibilityUpdate() {
-        if (ticking) {
-            return;
-        }
-
-        ticking = true;
-        window.requestAnimationFrame(updateButtonVisibility);
-    }
-
-    function scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: reducedMotionQuery.matches ? "auto" : "smooth"
-        });
-    }
-
-    backToTopButton.addEventListener("click", scrollToTop);
-
-    window.addEventListener(
-        "scroll",
-        requestVisibilityUpdate,
-        { passive: true }
-    );
-
-    window.addEventListener(
-        "resize",
-        requestVisibilityUpdate,
-        { passive: true }
-    );
-
-    updateButtonVisibility();
-
-})();
-
-
-/* =========================================================
-   ACCESSIBILITY ANNOUNCEMENT SYSTEM
-   ========================================================= */
-
-(function initializeAccessibilitySystem() {
-    "use strict";
-
-    if (window.__parachaAccessibilityInitialized) {
-        return;
-    }
-
-    window.__parachaAccessibilityInitialized = true;
-
-    const announcer = document.getElementById(
-        "accessibility-announcer"
-    );
-
-    function announce(message, priority) {
-        if (!announcer || typeof message !== "string") {
-            return;
-        }
-
-        const cleanMessage = message.trim();
-
-        if (!cleanMessage) {
-            return;
-        }
-
-        announcer.setAttribute(
-            "aria-live",
-            priority === "assertive" ? "assertive" : "polite"
-        );
-
-        announcer.textContent = "";
-
-        window.requestAnimationFrame(function () {
-            announcer.textContent = cleanMessage;
-        });
-    }
-
-    window.ParachaWedding = window.ParachaWedding || {};
-
-    window.ParachaWedding.announce = announce;
+  if (document.readyState === "loading") {
 
     document.addEventListener(
-        "paracha:languagechange",
-        function () {
-            const language = window.ParachaWedding.currentLanguage;
-
-            if (language === "ur") {
-                announce("زبان اردو میں تبدیل کر دی گئی ہے۔");
-            } else if (language === "en") {
-                announce("Language changed to English.");
-            }
-        }
+      "DOMContentLoaded",
+      initializePartThree,
+      { once: true }
     );
+
+  } else {
+
+    initializePartThree();
+
+  }
+
+
+  /* =======================================================
+     END OF JAVASCRIPT PART 3
+     Next: Final Integration & Initialization
+  ======================================================= */
 
 })();
 
-
 /* =========================================================
-   GLOBAL ERROR HANDLING
-   ========================================================= */
+   PARACHA WEDDING WEBSITE
+   JAVASCRIPT PART 4 OF 4
+   Final Integration, Accessibility & Quality Checks
+========================================================= */
 
-(function initializeGlobalErrorHandling() {
-    "use strict";
+(() => {
+  "use strict";
 
-    if (window.__parachaErrorHandlingInitialized) {
-        return;
+  const WeddingSite = window.WeddingSite;
+
+  if (!WeddingSite) {
+    console.error(
+      "WeddingSite core is missing. Check JavaScript Part 1."
+    );
+    return;
+  }
+
+
+  /* =======================================================
+     1. ELEMENT REFERENCES
+  ======================================================= */
+
+  const navigation = document.getElementById(
+    "main-navigation"
+  );
+
+  const menuToggle = document.getElementById(
+    "mobile-menu-toggle"
+  );
+
+  const pageSections = Array.from(
+    document.querySelectorAll(".page-section")
+  );
+
+  const pageLinks = Array.from(
+    document.querySelectorAll("[data-page-link]")
+  );
+
+
+  /* =======================================================
+     2. ACCESSIBILITY FIX FOR DESKTOP NAVIGATION
+  ======================================================= */
+
+  function synchronizeNavigationAccessibility() {
+
+    if (!navigation) return;
+
+    const isDesktop = window.innerWidth > 900;
+
+    if (isDesktop) {
+
+      /*
+        Desktop navigation is always accessible.
+      */
+
+      navigation.removeAttribute("aria-hidden");
+
+      navigation.removeAttribute("inert");
+
+    } else {
+
+      /*
+        On mobile, hide the closed navigation
+        from assistive technology.
+      */
+
+      const menuIsOpen =
+        menuToggle?.getAttribute("aria-expanded") === "true";
+
+      navigation.setAttribute(
+        "aria-hidden",
+        String(!menuIsOpen)
+      );
+
+      if (menuIsOpen) {
+        navigation.removeAttribute("inert");
+      } else {
+        navigation.setAttribute("inert", "");
+      }
+
     }
 
-    window.__parachaErrorHandlingInitialized = true;
+  }
 
-    window.addEventListener("error", function (event) {
-        /*
-         * Do not expose technical error details to visitors.
-         * Do not interrupt the website's normal operation.
-         */
 
-        if (window.console && typeof console.error === "function") {
-            console.error(
-                "[Paracha Wedding] A JavaScript error occurred.",
-                event.message || "Unknown error"
-            );
-        }
+  /* =======================================================
+     3. NAVIGATION RESIZE HANDLER
+  ======================================================= */
+
+  let resizeTimer = null;
+
+  function handleNavigationResize() {
+
+    if (resizeTimer !== null) {
+      window.clearTimeout(resizeTimer);
+    }
+
+    resizeTimer = window.setTimeout(() => {
+
+      synchronizeNavigationAccessibility();
+
+      resizeTimer = null;
+
+    }, 120);
+
+  }
+
+
+  /* =======================================================
+     4. ACTIVE PAGE NAVIGATION
+  ======================================================= */
+
+  function setActivePageLink(sectionId) {
+
+    pageLinks.forEach((link) => {
+
+      const isActive =
+        link.getAttribute("data-page-link") === sectionId;
+
+      link.classList.toggle(
+        "is-current-page",
+        isActive
+      );
+
+      if (isActive) {
+
+        link.setAttribute(
+          "aria-current",
+          "location"
+        );
+
+      } else {
+
+        link.removeAttribute("aria-current");
+
+      }
+
     });
 
-    window.addEventListener(
-        "unhandledrejection",
-        function (event) {
-            /*
-             * Record the failure for development diagnostics.
-             * No private information is displayed on the page.
-             */
+  }
 
-            if (window.console && typeof console.error === "function") {
-                console.error(
-                    "[Paracha Wedding] An asynchronous operation failed."
-                );
-            }
+
+  /* =======================================================
+     5. SECTION VISIBILITY OBSERVER
+  ======================================================= */
+
+  function initializeActiveSectionObserver() {
+
+    if (!pageSections.length) return;
+
+    if (!("IntersectionObserver" in window)) {
+      return;
+    }
+
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+
+        const visibleSections = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => {
+            return b.intersectionRatio - a.intersectionRatio;
+          });
+
+        if (!visibleSections.length) return;
+
+        const activeSection =
+          visibleSections[0].target;
+
+        if (activeSection.id) {
+          setActivePageLink(activeSection.id);
         }
+
+      },
+      {
+        root: null,
+
+        rootMargin: "-25% 0px -55% 0px",
+
+        threshold: [0, 0.15, 0.3, 0.5, 0.75]
+      }
     );
 
-})();
+    pageSections.forEach((section) => {
+      sectionObserver.observe(section);
+    });
+
+    WeddingSite.state.activeSectionObserver =
+      sectionObserver;
+
+  }
 
 
-/* =========================================================
-   FINAL INITIALIZATION
-   ========================================================= */
+  /* =======================================================
+     6. NAVIGATION LINK ACCESSIBILITY
+  ======================================================= */
 
-(function initializeParachaWeddingFinalSystems() {
-    "use strict";
+  function initializeNavigationLinks() {
 
-    if (window.__parachaWeddingFinalSystemsInitialized) {
-        return;
+    pageLinks.forEach((link) => {
+
+      const targetId = link.getAttribute(
+        "data-page-link"
+      );
+
+      if (!targetId) return;
+
+      const targetSection = document.getElementById(
+        targetId
+      );
+
+      if (!targetSection) {
+        console.warn(
+          `Navigation target not found: ${targetId}`
+        );
+      }
+
+    });
+
+  }
+
+
+  /* =======================================================
+     7. LANGUAGE CHANGE INTEGRATION
+  ======================================================= */
+
+  function handleLanguageChange() {
+
+    /*
+      Synchronize navigation accessibility
+      after language or layout changes.
+    */
+
+    synchronizeNavigationAccessibility();
+
+    /*
+      Refresh scroll-dependent UI.
+    */
+
+    if (
+      WeddingSite.scroll &&
+      typeof WeddingSite.scroll.update === "function"
+    ) {
+
+      WeddingSite.scroll.update();
+
     }
 
-    window.__parachaWeddingFinalSystemsInitialized = true;
+    /*
+      Refresh reveal observation if available.
+    */
 
-    function initializeFinalSystems() {
-        /*
-         * Scroll reveal, navigation, countdown, language,
-         * accessibility and back-to-top systems are initialized
-         * by their respective independent modules.
-         *
-         * This final initialization confirms that the document
-         * is ready and the required main page structure exists.
-         */
+    if (
+      WeddingSite.scroll &&
+      typeof WeddingSite.scroll.refreshReveal === "function"
+    ) {
 
-        const requiredElements = {
-            header: document.querySelector("header.site-header"),
-            main: document.querySelector("main"),
-            footer: document.getElementById("site-footer")
-        };
+      WeddingSite.scroll.refreshReveal();
 
-        if (!requiredElements.main) {
-            console.error(
-                "[Paracha Wedding] Main content element was not found."
-            );
+    }
+
+  }
+
+
+  /* =======================================================
+     8. CHECK REQUIRED PAGE STRUCTURE
+  ======================================================= */
+
+  function runStructureChecks() {
+
+    const requiredElements = [
+      "site-header",
+      "main-content",
+      "introduction",
+      "events",
+      "blessings",
+      "back-to-top",
+      "live-announcer"
+    ];
+
+    const missingElements = [];
+
+    requiredElements.forEach((id) => {
+
+      if (!document.getElementById(id)) {
+        missingElements.push(id);
+      }
+
+    });
+
+    if (missingElements.length) {
+
+      console.warn(
+        "Some expected website elements are missing:",
+        missingElements.join(", ")
+      );
+
+    }
+
+    return missingElements.length === 0;
+
+  }
+
+
+  /* =======================================================
+     9. CHECK EVENT COUNTDOWN STRUCTURE
+  ======================================================= */
+
+  function checkCountdownStructure() {
+
+    const countdowns = document.querySelectorAll(
+      "[data-countdown]"
+    );
+
+    countdowns.forEach((countdown) => {
+
+      const requiredValues = [
+        "days",
+        "hours",
+        "minutes",
+        "seconds"
+      ];
+
+      requiredValues.forEach((value) => {
+
+        const element = countdown.querySelector(
+          `[data-countdown-value="${value}"]`
+        );
+
+        if (!element) {
+
+          console.warn(
+            `Countdown element missing: ${value}`,
+            countdown
+          );
+
         }
 
-        document.documentElement.classList.add(
-            "paracha-site-ready"
-        );
+      });
 
-        /*
-         * Dispatch a custom event for future optional integrations.
-         * No external API or backend is required.
-         */
+    });
 
-        document.dispatchEvent(
-            new CustomEvent("paracha:site-ready", {
-                detail: {
-                    project: "Paracha Wedding Website by ASP",
-                    version: "1.0"
-                }
-            })
-        );
+  }
+
+
+  /* =======================================================
+     10. SAFE EXTERNAL LINKS
+  ======================================================= */
+
+  function secureExternalLinks() {
+
+    const externalLinks = document.querySelectorAll(
+      'a[target="_blank"]'
+    );
+
+    externalLinks.forEach((link) => {
+
+      const currentRel =
+        link.getAttribute("rel") || "";
+
+      const relValues = new Set(
+        currentRel.split(/\s+/).filter(Boolean)
+      );
+
+      relValues.add("noopener");
+      relValues.add("noreferrer");
+
+      link.setAttribute(
+        "rel",
+        Array.from(relValues).join(" ")
+      );
+
+    });
+
+  }
+
+
+  /* =======================================================
+     11. PREVENT EMPTY HASH NAVIGATION
+  ======================================================= */
+
+  function initializeAnchorSafety() {
+
+    document.addEventListener("click", (event) => {
+
+      const link = event.target.closest(
+        'a[href="#"]'
+      );
+
+      if (!link) return;
+
+      event.preventDefault();
+
+    });
+
+  }
+
+
+  /* =======================================================
+     12. PUBLIC INTEGRATION METHODS
+  ======================================================= */
+
+  WeddingSite.integration = {
+
+    synchronizeNavigation:
+      synchronizeNavigationAccessibility,
+
+    refreshNavigation: () => {
+
+      initializeNavigationLinks();
+
+      synchronizeNavigationAccessibility();
+
+    },
+
+    setActivePage: setActivePageLink,
+
+    runStructureChecks: runStructureChecks
+
+  };
+
+
+  /* =======================================================
+     13. INITIALIZE FINAL INTEGRATION
+  ======================================================= */
+
+  function initializePartFour() {
+
+    runStructureChecks();
+
+    checkCountdownStructure();
+
+    secureExternalLinks();
+
+    initializeAnchorSafety();
+
+    initializeNavigationLinks();
+
+    synchronizeNavigationAccessibility();
+
+    initializeActiveSectionObserver();
+
+    window.addEventListener(
+      "resize",
+      handleNavigationResize,
+      { passive: true }
+    );
+
+    document.addEventListener(
+      "wedding:languageChanged",
+      handleLanguageChange
+    );
+
+    /*
+      Set the initial active navigation item.
+    */
+
+    if (pageSections.length) {
+
+      const firstSection = pageSections[0];
+
+      if (firstSection.id) {
+        setActivePageLink(firstSection.id);
+      }
+
     }
 
-    if (document.readyState === "loading") {
-        document.addEventListener(
-            "DOMContentLoaded",
-            initializeFinalSystems,
-            { once: true }
-        );
-    } else {
-        initializeFinalSystems();
-    }
+    console.info(
+      "Wedding website JavaScript integration initialized."
+    );
+
+  }
+
+
+  /* =======================================================
+     14. DOM READY
+  ======================================================= */
+
+  if (document.readyState === "loading") {
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      initializePartFour,
+      { once: true }
+    );
+
+  } else {
+
+    initializePartFour();
+
+  }
+
+
+  /* =======================================================
+     END OF JAVASCRIPT PART 4 OF 4
+     END OF JAVASCRIPT FILE
+  ======================================================= */
 
 })();
-
-/* =========================================================
-   END OF JAVASCRIPT PART 4 OF 4
-   ========================================================= */
